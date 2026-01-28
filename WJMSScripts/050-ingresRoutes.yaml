@@ -1,0 +1,78 @@
+apiVersion: traefik.io/v1alpha1
+kind: ServersTransport
+metadata:
+  name: insecure-transport
+  namespace: wjms-ns
+spec:
+  insecureSkipVerify: true
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wjms-admin-clusterip
+  namespace: wjms-ns
+spec:
+  type: ClusterIP
+  selector:
+    weblogic.createdByOperator: "true"
+    weblogic.domainUID: wjms
+    weblogic.serverName: wjmswladmin0
+  ports:
+  - name: admin-https
+    port: 9002
+    targetPort: 9002
+    protocol: TCP
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: wjms-admin-console
+  namespace: wjms-ns
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`admin.wjms.telco.es`)
+      kind: Rule
+      services:
+        - name: wjms-admin-clusterip
+          port: 9002
+          scheme: https
+          serversTransport: insecure-transport
+  tls: {}
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: wjms-cluster-coco
+  namespace: wjms-ns
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`coco.wjms.telco.es`)
+      kind: Rule
+      services:
+        - name: wjms-cluster-wjmsjmscoco
+          port: 7002
+          scheme: https
+          serversTransport: insecure-transport
+  tls: {}
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: wjms-cluster-jms
+  namespace: wjms-ns
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`jms.wjms.telco.es`)
+      kind: Rule
+      services:
+        - name: wjms-cluster-wjmsjmswjms
+          port: 7002
+          scheme: https
+          serversTransport: insecure-transport
+  tls: {}

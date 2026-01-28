@@ -1,0 +1,32 @@
+# Copyright 2019, Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-prometheus
+
+spec:
+  storageClassName: prometheus
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/home/opc/test/monitoring/prometheus"
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-prometheus
+  namespace: monitoring
+
+spec:
+  storageClassName: prometheus
+  resources:
+    requests:
+      storage: 10Gi
+  accessModes:
+    - ReadWriteOnce

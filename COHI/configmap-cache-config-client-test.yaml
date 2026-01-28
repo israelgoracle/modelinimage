@@ -1,0 +1,567 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cache-config-client
+  namespace: cohi-ns
+  uid: cab9b57e-9042-4096-b732-3955c124847e
+  resourceVersion: '10441975'
+  creationTimestamp: '2025-12-10T11:03:50Z'
+  labels:
+    k8slens-edit-resource-version: v1
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"v1","data":{"cache_config_client.xml":"\u003c?xml
+      version=\"1.0\"?\u003e\n\n\u003ccache-config
+      xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\nxmlns=\"http://xmlns.oracle.com/coherence/coherence-cache-config\"\nxsi:schemaLocation=\"http://xmlns.oracle.com/coherence/coherence-cache-config\ncoherence-cache-config.xsd\"\u003e\n   
+      \u003cscope-name\u003etelefonica.coherence\u003c/scope-name\u003e\n   
+      \u003cdefaults\u003e\n   
+      \u003cserializer\u003ejava\u003c/serializer\u003e\n   
+      \u003c/defaults\u003e\n    \u003ccaching-scheme-mapping\u003e\n       
+      \u003c!-- CACHE UDDI (ENDPOINTS OSR) --\u003e\n       
+      \u003ccache-mapping\u003e\n           
+      \u003ccache-name\u003eCACHE_UDDI\u003c/cache-name\u003e\n           
+      \u003cscheme-name\u003eCOHI-near-proxy-infra\u003c/scheme-name\u003e\n       
+      \u003c/cache-mapping\u003e\n        \u003c!-- CACHE SEGURIDAD
+      --\u003e\n        \u003ccache-mapping\u003e\n           
+      \u003ccache-name\u003eCACHE_SEGU\u003c/cache-name\u003e\n           
+      \u003cscheme-name\u003eCOHI-near-proxy-infra\u003c/scheme-name\u003e\n       
+      \u003c/cache-mapping\u003e\n        \u003c!-- CACHE SECURITY CONTEXT
+      --\u003e\n        \u003ccache-mapping\u003e\n           
+      \u003ccache-name\u003eCACHE_SCRTYCTX\u003c/cache-name\u003e\n           
+      \u003cscheme-name\u003eCOHI-near-proxy-infra\u003c/scheme-name\u003e\n       
+      \u003c/cache-mapping\u003e\n        \u003c!-- CACHES DE OBJETOS SEGUN
+      TIEMPO DE VIDA --\u003e\n        \u003ccache-mapping\u003e\n           
+      \u003ccache-name\u003eCACHE_PRES_*\u003c/cache-name\u003e\n           
+      \u003cscheme-name\u003eCOHI-proxy-servicio\u003c/scheme-name\u003e\n       
+      \u003c/cache-mapping\u003e\n        \u003ccache-mapping\u003e\n           
+      \u003ccache-name\u003eCACHE_NUC_*\u003c/cache-name\u003e\n           
+      \u003cscheme-name\u003eCOHI-proxy-servicio\u003c/scheme-name\u003e\n       
+      \u003c/cache-mapping\u003e\n        \u003c!-- CACHE SERVICIO
+      --\u003e\n        \u003ccache-mapping\u003e\n           
+      \u003ccache-name\u003eCACHE_APP_CATA_*\u003c/cache-name\u003e\n           
+      \u003cscheme-name\u003eCOHI-near-proxy-servicio-cata\u003c/scheme-name\u003e\n           
+      \u003cinit-params\u003e\n               
+      \u003cinit-param\u003e\n                   
+      \u003cparam-name\u003enum-elements\u003c/param-name\u003e\n                   
+      \u003cparam-value\u003e100k\u003c/param-value\u003e\n               
+      \u003c/init-param\u003e\n            \u003c/init-params\u003e\n       
+      \u003c/cache-mapping\u003e\n        \u003ccache-mapping\u003e\n           
+      \u003ccache-name\u003eCACHE_APP_*\u003c/cache-name\u003e\n           
+      \u003cscheme-name\u003eCOHI-near-proxy-servicio\u003c/scheme-name\u003e\n           
+      \u003cinit-params\u003e\n               
+      \u003cinit-param\u003e\n                   
+      \u003cparam-name\u003enum-elements\u003c/param-name\u003e\n                   
+      \u003cparam-value\u003e100k\u003c/param-value\u003e\n               
+      \u003c/init-param\u003e\n            \u003c/init-params\u003e\n       
+      \u003c/cache-mapping\u003e\n        \u003c!-- CACHE OLA0 --\u003e\n       
+      \u003ccache-mapping\u003e\n           
+      \u003ccache-name\u003eT3_FMK_*\u003c/cache-name\u003e\n           
+      \u003cscheme-name\u003eCOHI-proxy-servicio\u003c/scheme-name\u003e\n       
+      \u003c/cache-mapping\u003e\n        \u003c!-- CACHE FLOWVARS
+      --\u003e\n        \u003ccache-mapping\u003e\n           
+      \u003ccache-name\u003eDATA_*\u003c/cache-name\u003e\n           
+      \u003cscheme-name\u003eCOHI-proxy-var\u003c/scheme-name\u003e\n       
+      \u003c/cache-mapping\u003e\n        \u003c!-- CACHE CONTROL (Semáforos)
+      --\u003e\n        \u003ccache-mapping\u003e\n           
+      \u003ccache-name\u003eCACHE_CTRL_*\u003c/cache-name\u003e\n           
+      \u003cscheme-name\u003eCOHI-proxy-var\u003c/scheme-name\u003e\n       
+      \u003c/cache-mapping\u003e\n        \u003c!-- CACHE DRO NEAR
+      --\u003e\n        \u003ccache-mapping\u003e\n           
+      \u003ccache-name\u003eCACHE_DRO_*\u003c/cache-name\u003e\n           
+      \u003cscheme-name\u003eCOHI-near-proxy-drot\u003c/scheme-name\u003e\n       
+      \u003c/cache-mapping\u003e\n    \u003c/caching-scheme-mapping\u003e\n   
+      \u003ccaching-schemes\u003e\n        \u003c!-- Near Caches
+      --\u003e\n        \u003cnear-scheme\u003e\n           
+      \u003cscheme-name\u003eCOHI-near-proxy-drot\u003c/scheme-name\u003e\n           
+      \u003cfront-scheme\u003e\n               
+      \u003clocal-scheme\u003e\n                   
+      \u003cscheme-ref\u003elocal-drot\u003c/scheme-ref\u003e\n               
+      \u003c/local-scheme\u003e\n           
+      \u003c/front-scheme\u003e\n           
+      \u003cback-scheme\u003e\n               
+      \u003cremote-cache-scheme\u003e\n                   
+      \u003cscheme-ref\u003eCOHI-proxy-drot\u003c/scheme-ref\u003e\n               
+      \u003c/remote-cache-scheme\u003e\n           
+      \u003c/back-scheme\u003e\n           
+      \u003cinvalidation-strategy\u003epresent\u003c/invalidation-strategy\u003e\n       
+      \u003c/near-scheme\u003e\n        \u003cnear-scheme\u003e\n           
+      \u003cscheme-name\u003eCOHI-near-proxy-servicio-cata\u003c/scheme-name\u003e\n           
+      \u003cfront-scheme\u003e\n               
+      \u003clocal-scheme\u003e\n                   
+      \u003cscheme-ref\u003elocal-servicio\u003c/scheme-ref\u003e\n                   
+      \u003cinit-params\u003e\n                       
+      \u003cinit-param\u003e\n                           
+      \u003cparam-name\u003enum-elements\u003c/param-name\u003e\n                           
+      \u003cparam-value\u003e{num-elements}\u003c/param-value\u003e\n                       
+      \u003c/init-param\u003e\n                   
+      \u003c/init-params\u003e\n               
+      \u003c/local-scheme\u003e\n           
+      \u003c/front-scheme\u003e\n           
+      \u003cback-scheme\u003e\n               
+      \u003cremote-cache-scheme\u003e\n                   
+      \u003cscheme-ref\u003eCOHI-proxy-servicio-cata\u003c/scheme-ref\u003e\n               
+      \u003c/remote-cache-scheme\u003e\n           
+      \u003c/back-scheme\u003e\n           
+      \u003cinvalidation-strategy\u003eall\u003c/invalidation-strategy\u003e\n       
+      \u003c/near-scheme\u003e\n        \u003cnear-scheme\u003e\n           
+      \u003cscheme-name\u003eCOHI-near-proxy-servicio\u003c/scheme-name\u003e\n           
+      \u003cfront-scheme\u003e\n               
+      \u003clocal-scheme\u003e\n                   
+      \u003cscheme-ref\u003elocal-servicio\u003c/scheme-ref\u003e\n                   
+      \u003cinit-params\u003e\n                       
+      \u003cinit-param\u003e\n                           
+      \u003cparam-name\u003enum-elements\u003c/param-name\u003e\n                           
+      \u003cparam-value\u003e{num-elements}\u003c/param-value\u003e\n                       
+      \u003c/init-param\u003e\n                   
+      \u003c/init-params\u003e\n               
+      \u003c/local-scheme\u003e\n           
+      \u003c/front-scheme\u003e\n           
+      \u003cback-scheme\u003e\n               
+      \u003cremote-cache-scheme\u003e\n                   
+      \u003cscheme-ref\u003eCOHI-proxy-servicio\u003c/scheme-ref\u003e\n               
+      \u003c/remote-cache-scheme\u003e\n           
+      \u003c/back-scheme\u003e\n           
+      \u003cinvalidation-strategy\u003eall\u003c/invalidation-strategy\u003e\n       
+      \u003c/near-scheme\u003e\n        \u003cnear-scheme\u003e\n           
+      \u003cscheme-name\u003eCOHI-near-proxy-infra\u003c/scheme-name\u003e\n           
+      \u003cfront-scheme\u003e\n               
+      \u003clocal-scheme\u003e\n                   
+      \u003cscheme-ref\u003elocal-infra\u003c/scheme-ref\u003e\n               
+      \u003c/local-scheme\u003e\n           
+      \u003c/front-scheme\u003e\n           
+      \u003cback-scheme\u003e\n               
+      \u003cremote-cache-scheme\u003e\n                   
+      \u003cscheme-ref\u003eCOHI-proxy-infra\u003c/scheme-ref\u003e\n               
+      \u003c/remote-cache-scheme\u003e\n           
+      \u003c/back-scheme\u003e\n           
+      \u003cinvalidation-strategy\u003epresent\u003c/invalidation-strategy\u003e\n       
+      \u003c/near-scheme\u003e\n        \u003clocal-scheme\u003e\n           
+      \u003cscheme-name\u003elocal-servicio\u003c/scheme-name\u003e\n           
+      \u003ceviction-policy\u003eHYBRID\u003c/eviction-policy\u003e\n           
+      \u003chigh-units\u003e{num-elements}\u003c/high-units\u003e\n       
+      \u003c/local-scheme\u003e\n        \u003clocal-scheme\u003e\n           
+      \u003cscheme-name\u003elocal-drot\u003c/scheme-name\u003e\n           
+      \u003ceviction-policy\u003eHYBRID\u003c/eviction-policy\u003e\n           
+      \u003chigh-units\u003e64M\u003c/high-units\u003e\n       
+      \u003c/local-scheme\u003e\n        \u003clocal-scheme\u003e\n           
+      \u003cscheme-name\u003elocal-infra\u003c/scheme-name\u003e\n           
+      \u003ceviction-policy\u003eHYBRID\u003c/eviction-policy\u003e\n           
+      \u003chigh-units\u003e8M\u003c/high-units\u003e\n       
+      \u003c/local-scheme\u003e\n        \u003c!-- Client Side - Configuración
+      para conectar a los proxy servers de COHI --\u003e\n       
+      \u003cremote-cache-scheme\u003e\n           
+      \u003cscheme-name\u003eCOHI-proxy-infra\u003c/scheme-name\u003e\n           
+      \u003cservice-name\u003eCOHI-ExtendTcpProxyService-INFRA\u003c/service-name\u003e\n           
+      \u003cinitiator-config\u003e\n               
+      \u003ctcp-initiator\u003e\n                   
+      \u003cremote-addresses\u003e\n                       
+      \u003csocket-address\u003e\n                           
+      \u003caddress\u003ecohi-proxy-extend.cohi-ns.svc.cluster.local\u003c/address\u003e\n                           
+      \u003cport\u003e36102\u003c/port\u003e\n                       
+      \u003c/socket-address\u003e\n                   
+      \u003c/remote-addresses\u003e\n               
+      \u003c/tcp-initiator\u003e\n               
+      \u003coutgoing-message-handler\u003e\n                   
+      \u003cheartbeat-interval\u003e60s\u003c/heartbeat-interval\u003e\n                   
+      \u003cheartbeat-timeout\u003e2s\u003c/heartbeat-timeout\u003e\n                   
+      \u003crequest-timeout\u003e15s\u003c/request-timeout\u003e\n               
+      \u003c/outgoing-message-handler\u003e\n               
+      \u003cconnect-timeout\u003e2s\u003c/connect-timeout\u003e\n           
+      \u003c/initiator-config\u003e\n       
+      \u003c/remote-cache-scheme\u003e\n       
+      \u003cremote-cache-scheme\u003e\n           
+      \u003cscheme-name\u003eCOHI-proxy-servicio\u003c/scheme-name\u003e\n           
+      \u003cservice-name\u003eCOHI-ExtendTcpProxyService-SERVICIO\u003c/service-name\u003e\n           
+      \u003cinitiator-config\u003e\n               
+      \u003ctcp-initiator\u003e\n                   
+      \u003cremote-addresses\u003e\n                       
+      \u003csocket-address\u003e\n                           
+      \u003caddress\u003ecohi-proxy-extend.cohi-ns.svc.cluster.local\u003c/address\u003e\n                           
+      \u003cport\u003e36112\u003c/port\u003e\n                       
+      \u003c/socket-address\u003e\n                   
+      \u003c/remote-addresses\u003e\n               
+      \u003c/tcp-initiator\u003e\n               
+      \u003coutgoing-message-handler\u003e\n                   
+      \u003cheartbeat-interval\u003e60s\u003c/heartbeat-interval\u003e\n                   
+      \u003cheartbeat-timeout\u003e2s\u003c/heartbeat-timeout\u003e\n                   
+      \u003crequest-timeout\u003e15s\u003c/request-timeout\u003e\n               
+      \u003c/outgoing-message-handler\u003e\n               
+      \u003cconnect-timeout\u003e2s\u003c/connect-timeout\u003e\n           
+      \u003c/initiator-config\u003e\n       
+      \u003c/remote-cache-scheme\u003e\n       
+      \u003cremote-cache-scheme\u003e\n           
+      \u003cscheme-name\u003eCOHI-proxy-servicio-cata\u003c/scheme-name\u003e\n           
+      \u003cservice-name\u003eCOHI-ExtendTcpProxyService-SERVICIO-CATA\u003c/service-name\u003e\n           
+      \u003cinitiator-config\u003e\n               
+      \u003ctcp-initiator\u003e\n                   
+      \u003cremote-addresses\u003e\n                       
+      \u003csocket-address\u003e\n                           
+      \u003caddress\u003ecohi-proxy-extend.cohi-ns.svc.cluster.local\u003c/address\u003e\n                           
+      \u003cport\u003e36142\u003c/port\u003e\n                       
+      \u003c/socket-address\u003e\n                   
+      \u003c/remote-addresses\u003e\n               
+      \u003c/tcp-initiator\u003e\n               
+      \u003coutgoing-message-handler\u003e\n                   
+      \u003cheartbeat-interval\u003e60s\u003c/heartbeat-interval\u003e\n                   
+      \u003cheartbeat-timeout\u003e2s\u003c/heartbeat-timeout\u003e\n                   
+      \u003crequest-timeout\u003e15s\u003c/request-timeout\u003e\n               
+      \u003c/outgoing-message-handler\u003e\n               
+      \u003cconnect-timeout\u003e2s\u003c/connect-timeout\u003e\n           
+      \u003c/initiator-config\u003e\n       
+      \u003c/remote-cache-scheme\u003e\n       
+      \u003cremote-cache-scheme\u003e\n           
+      \u003cscheme-name\u003eCOHI-proxy-var\u003c/scheme-name\u003e\n           
+      \u003cservice-name\u003eCOHI-ExtendTcpProxyService-VAR\u003c/service-name\u003e\n           
+      \u003cinitiator-config\u003e\n               
+      \u003ctcp-initiator\u003e\n                   
+      \u003cremote-addresses\u003e\n                       
+      \u003csocket-address\u003e\n                           
+      \u003caddress\u003ecohi-proxy-extend.cohi-ns.svc.cluster.local\u003c/address\u003e\n                           
+      \u003cport\u003e36122\u003c/port\u003e\n                       
+      \u003c/socket-address\u003e\n                   
+      \u003c/remote-addresses\u003e\n               
+      \u003c/tcp-initiator\u003e\n               
+      \u003coutgoing-message-handler\u003e\n                   
+      \u003cheartbeat-interval\u003e60s\u003c/heartbeat-interval\u003e\n                   
+      \u003cheartbeat-timeout\u003e2s\u003c/heartbeat-timeout\u003e\n                   
+      \u003crequest-timeout\u003e15s\u003c/request-timeout\u003e\n               
+      \u003c/outgoing-message-handler\u003e\n               
+      \u003cconnect-timeout\u003e2s\u003c/connect-timeout\u003e\n           
+      \u003c/initiator-config\u003e\n       
+      \u003c/remote-cache-scheme\u003e\n       
+      \u003cremote-cache-scheme\u003e\n           
+      \u003cscheme-name\u003eCOHI-proxy-drot\u003c/scheme-name\u003e\n           
+      \u003cservice-name\u003eCOHI-ExtendTcpProxyService-DROT\u003c/service-name\u003e\n           
+      \u003cinitiator-config\u003e\n               
+      \u003ctcp-initiator\u003e\n                   
+      \u003cremote-addresses\u003e\n                       
+      \u003csocket-address\u003e\n                           
+      \u003caddress\u003ecohi-proxy-extend.cohi-ns.svc.cluster.local\u003c/address\u003e\n                           
+      \u003cport\u003e36132\u003c/port\u003e\n                       
+      \u003c/socket-address\u003e\n                   
+      \u003c/remote-addresses\u003e\n               
+      \u003c/tcp-initiator\u003e\n               
+      \u003coutgoing-message-handler\u003e\n                   
+      \u003cheartbeat-interval\u003e60s\u003c/heartbeat-interval\u003e\n                   
+      \u003cheartbeat-timeout\u003e2s\u003c/heartbeat-timeout\u003e\n                   
+      \u003crequest-timeout\u003e15s\u003c/request-timeout\u003e\n               
+      \u003c/outgoing-message-handler\u003e\n               
+      \u003cconnect-timeout\u003e2s\u003c/connect-timeout\u003e\n           
+      \u003c/initiator-config\u003e\n       
+      \u003c/remote-cache-scheme\u003e\n   
+      \u003c/caching-schemes\u003e\n\u003c/cache-config\u003e\n","tangosol-coherence-override.xml":"\u003c?xml
+      version=\"1.0\"?\u003e\n\n\u003ccoherence
+      xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n   
+      xmlns=\"http://xmlns.oracle.com/coherence/coherence-operational-config\"\n   
+      xsi:schemaLocation=\"http://xmlns.oracle.com/coherence/coherence-operational-config
+      coherence-operational-config.xsd\"\u003e\n   
+      \u003ccluster-config\u003e\n       
+      \u003cmember-identity\u003e\n           
+      \u003ccluster-name\u003etelefonica.coherence\u003c/cluster-name\u003e\n       
+      \u003c/member-identity\u003e\n   
+      \u003c/cluster-config\u003e\n\u003c/coherence\u003e\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"cache-config-client","namespace":"wjms-ns"}}
+  managedFields:
+    - manager: node-fetch
+      operation: Update
+      apiVersion: v1
+      time: '2025-12-15T13:28:40Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:k8slens-edit-resource-version: {}
+    - manager: kubectl-client-side-apply
+      operation: Update
+      apiVersion: v1
+      time: '2025-12-16T16:01:14Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:data:
+          .: {}
+          f:cache_config_client.xml: {}
+          f:tangosol-coherence-override.xml: {}
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:kubectl.kubernetes.io/last-applied-configuration: {}
+  selfLink: /api/v1/namespaces/wjms-ns/configmaps/cache-config-client
+data:
+  cache_config_client.xml: |
+    <?xml version="1.0"?>
+
+    <cache-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://xmlns.oracle.com/coherence/coherence-cache-config"
+    xsi:schemaLocation="http://xmlns.oracle.com/coherence/coherence-cache-config
+    coherence-cache-config.xsd">
+        <scope-name>telefonica.coherence</scope-name>
+        <defaults>
+        <serializer>java</serializer>
+        </defaults>
+        <caching-scheme-mapping>
+            <!-- CACHE UDDI (ENDPOINTS OSR) -->
+            <cache-mapping>
+                <cache-name>CACHE_UDDI</cache-name>
+                <scheme-name>COHI-near-proxy-infra</scheme-name>
+            </cache-mapping>
+            <!-- CACHE SEGURIDAD -->
+            <cache-mapping>
+                <cache-name>CACHE_SEGU</cache-name>
+                <scheme-name>COHI-near-proxy-infra</scheme-name>
+            </cache-mapping>
+            <!-- CACHE SECURITY CONTEXT -->
+            <cache-mapping>
+                <cache-name>CACHE_SCRTYCTX</cache-name>
+                <scheme-name>COHI-near-proxy-infra</scheme-name>
+            </cache-mapping>
+            <!-- CACHES DE OBJETOS SEGUN TIEMPO DE VIDA -->
+            <cache-mapping>
+                <cache-name>CACHE_PRES_*</cache-name>
+                <scheme-name>COHI-proxy-servicio</scheme-name>
+            </cache-mapping>
+            <cache-mapping>
+                <cache-name>CACHE_NUC_*</cache-name>
+                <scheme-name>COHI-proxy-servicio</scheme-name>
+            </cache-mapping>
+            <!-- CACHE SERVICIO -->
+            <cache-mapping>
+                <cache-name>CACHE_APP_CATA_*</cache-name>
+                <scheme-name>COHI-near-proxy-servicio-cata</scheme-name>
+                <init-params>
+                    <init-param>
+                        <param-name>num-elements</param-name>
+                        <param-value>100k</param-value>
+                    </init-param>
+                </init-params>
+            </cache-mapping>
+            <cache-mapping>
+                <cache-name>CACHE_APP_*</cache-name>
+                <scheme-name>COHI-near-proxy-servicio</scheme-name>
+                <init-params>
+                    <init-param>
+                        <param-name>num-elements</param-name>
+                        <param-value>100k</param-value>
+                    </init-param>
+                </init-params>
+            </cache-mapping>
+            <!-- CACHE OLA0 -->
+            <cache-mapping>
+                <cache-name>T3_FMK_*</cache-name>
+                <scheme-name>COHI-proxy-servicio</scheme-name>
+            </cache-mapping>
+            <!-- CACHE FLOWVARS -->
+            <cache-mapping>
+                <cache-name>DATA_*</cache-name>
+                <scheme-name>COHI-proxy-var</scheme-name>
+            </cache-mapping>
+            <!-- CACHE CONTROL (Semáforos) -->
+            <cache-mapping>
+                <cache-name>CACHE_CTRL_*</cache-name>
+                <scheme-name>COHI-proxy-var</scheme-name>
+            </cache-mapping>
+            <!-- CACHE DRO NEAR -->
+            <cache-mapping>
+                <cache-name>CACHE_DRO_*</cache-name>
+                <scheme-name>COHI-near-proxy-drot</scheme-name>
+            </cache-mapping>
+        </caching-scheme-mapping>
+        <caching-schemes>
+            <!-- Near Caches -->
+            <near-scheme>
+                <scheme-name>COHI-near-proxy-drot</scheme-name>
+                <front-scheme>
+                    <local-scheme>
+                        <scheme-ref>local-drot</scheme-ref>
+                    </local-scheme>
+                </front-scheme>
+                <back-scheme>
+                    <remote-cache-scheme>
+                        <scheme-ref>COHI-proxy-drot</scheme-ref>
+                    </remote-cache-scheme>
+                </back-scheme>
+                <invalidation-strategy>present</invalidation-strategy>
+            </near-scheme>
+            <near-scheme>
+                <scheme-name>COHI-near-proxy-servicio-cata</scheme-name>
+                <front-scheme>
+                    <local-scheme>
+                        <scheme-ref>local-servicio</scheme-ref>
+                        <init-params>
+                            <init-param>
+                                <param-name>num-elements</param-name>
+                                <param-value>{num-elements}</param-value>
+                            </init-param>
+                        </init-params>
+                    </local-scheme>
+                </front-scheme>
+                <back-scheme>
+                    <remote-cache-scheme>
+                        <scheme-ref>COHI-proxy-servicio-cata</scheme-ref>
+                    </remote-cache-scheme>
+                </back-scheme>
+                <invalidation-strategy>all</invalidation-strategy>
+            </near-scheme>
+            <near-scheme>
+                <scheme-name>COHI-near-proxy-servicio</scheme-name>
+                <front-scheme>
+                    <local-scheme>
+                        <scheme-ref>local-servicio</scheme-ref>
+                        <init-params>
+                            <init-param>
+                                <param-name>num-elements</param-name>
+                                <param-value>{num-elements}</param-value>
+                            </init-param>
+                        </init-params>
+                    </local-scheme>
+                </front-scheme>
+                <back-scheme>
+                    <remote-cache-scheme>
+                        <scheme-ref>COHI-proxy-servicio</scheme-ref>
+                    </remote-cache-scheme>
+                </back-scheme>
+                <invalidation-strategy>all</invalidation-strategy>
+            </near-scheme>
+            <near-scheme>
+                <scheme-name>COHI-near-proxy-infra</scheme-name>
+                <front-scheme>
+                    <local-scheme>
+                        <scheme-ref>local-infra</scheme-ref>
+                    </local-scheme>
+                </front-scheme>
+                <back-scheme>
+                    <remote-cache-scheme>
+                        <scheme-ref>COHI-proxy-infra</scheme-ref>
+                    </remote-cache-scheme>
+                </back-scheme>
+                <invalidation-strategy>present</invalidation-strategy>
+            </near-scheme>
+            <local-scheme>
+                <scheme-name>local-servicio</scheme-name>
+                <eviction-policy>HYBRID</eviction-policy>
+                <high-units>{num-elements}</high-units>
+            </local-scheme>
+            <local-scheme>
+                <scheme-name>local-drot</scheme-name>
+                <eviction-policy>HYBRID</eviction-policy>
+                <high-units>64M</high-units>
+            </local-scheme>
+            <local-scheme>
+                <scheme-name>local-infra</scheme-name>
+                <eviction-policy>HYBRID</eviction-policy>
+                <high-units>8M</high-units>
+            </local-scheme>
+            <!-- Client Side - Configuración para conectar a los proxy servers de COHI -->
+            <remote-cache-scheme>
+                <scheme-name>COHI-proxy-infra</scheme-name>
+                <service-name>COHI-ExtendTcpProxyService-INFRA</service-name>
+                <initiator-config>
+                    <tcp-initiator>
+                        <remote-addresses>
+                            <socket-address>
+                                <address>cohi-proxy-extend.cohi-ns.svc.cluster.local</address>
+                                <port>36102</port>
+                            </socket-address>
+                        </remote-addresses>
+                    </tcp-initiator>
+                    <outgoing-message-handler>
+                        <heartbeat-interval>60s</heartbeat-interval>
+                        <heartbeat-timeout>2s</heartbeat-timeout>
+                        <request-timeout>15s</request-timeout>
+                    </outgoing-message-handler>
+                    <connect-timeout>2s</connect-timeout>
+                </initiator-config>
+            </remote-cache-scheme>
+            <remote-cache-scheme>
+                <scheme-name>COHI-proxy-servicio</scheme-name>
+                <service-name>COHI-ExtendTcpProxyService-SERVICIO</service-name>
+                <initiator-config>
+                    <tcp-initiator>
+                        <remote-addresses>
+                            <socket-address>
+                                <address>cohi-proxy-extend.cohi-ns.svc.cluster.local</address>
+                                <port>36112</port>
+                            </socket-address>
+                        </remote-addresses>
+                    </tcp-initiator>
+                    <outgoing-message-handler>
+                        <heartbeat-interval>60s</heartbeat-interval>
+                        <heartbeat-timeout>2s</heartbeat-timeout>
+                        <request-timeout>15s</request-timeout>
+                    </outgoing-message-handler>
+                    <connect-timeout>2s</connect-timeout>
+                </initiator-config>
+            </remote-cache-scheme>
+            <remote-cache-scheme>
+                <scheme-name>COHI-proxy-servicio-cata</scheme-name>
+                <service-name>COHI-ExtendTcpProxyService-SERVICIO-CATA</service-name>
+                <initiator-config>
+                    <tcp-initiator>
+                        <remote-addresses>
+                            <socket-address>
+                                <address>cohi-proxy-extend.cohi-ns.svc.cluster.local</address>
+                                <port>36142</port>
+                            </socket-address>
+                        </remote-addresses>
+                    </tcp-initiator>
+                    <outgoing-message-handler>
+                        <heartbeat-interval>60s</heartbeat-interval>
+                        <heartbeat-timeout>2s</heartbeat-timeout>
+                        <request-timeout>15s</request-timeout>
+                    </outgoing-message-handler>
+                    <connect-timeout>2s</connect-timeout>
+                </initiator-config>
+            </remote-cache-scheme>
+            <remote-cache-scheme>
+                <scheme-name>COHI-proxy-var</scheme-name>
+                <service-name>COHI-ExtendTcpProxyService-VAR</service-name>
+                <initiator-config>
+                    <tcp-initiator>
+                        <remote-addresses>
+                            <socket-address>
+                                <address>cohi-proxy-extend.cohi-ns.svc.cluster.local</address>
+                                <port>36122</port>
+                            </socket-address>
+                        </remote-addresses>
+                    </tcp-initiator>
+                    <outgoing-message-handler>
+                        <heartbeat-interval>60s</heartbeat-interval>
+                        <heartbeat-timeout>2s</heartbeat-timeout>
+                        <request-timeout>15s</request-timeout>
+                    </outgoing-message-handler>
+                    <connect-timeout>2s</connect-timeout>
+                </initiator-config>
+            </remote-cache-scheme>
+            <remote-cache-scheme>
+                <scheme-name>COHI-proxy-drot</scheme-name>
+                <service-name>COHI-ExtendTcpProxyService-DROT</service-name>
+                <initiator-config>
+                    <tcp-initiator>
+                        <remote-addresses>
+                            <socket-address>
+                                <address>cohi-proxy-extend.cohi-ns.svc.cluster.local</address>
+                                <port>36132</port>
+                            </socket-address>
+                        </remote-addresses>
+                    </tcp-initiator>
+                    <outgoing-message-handler>
+                        <heartbeat-interval>60s</heartbeat-interval>
+                        <heartbeat-timeout>2s</heartbeat-timeout>
+                        <request-timeout>15s</request-timeout>
+                    </outgoing-message-handler>
+                    <connect-timeout>2s</connect-timeout>
+                </initiator-config>
+            </remote-cache-scheme>
+        </caching-schemes>
+    </cache-config>
+  tangosol-coherence-override.xml: |
+    <?xml version="1.0"?>
+
+    <coherence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://xmlns.oracle.com/coherence/coherence-operational-config"
+        xsi:schemaLocation="http://xmlns.oracle.com/coherence/coherence-operational-config coherence-operational-config.xsd">
+        <cluster-config>
+            <member-identity>
+                <cluster-name>telefonica.coherence</cluster-name>
+            </member-identity>
+        </cluster-config>
+    </coherence>

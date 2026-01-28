@@ -1,0 +1,14 @@
+Imagen parcheada disponible en: mad.ocir.io/axojlwfywuhi/oke/weblogic:14.1.2.0.0-p37650720
+
+Para usar esta imagen en sus dominios, actualice el campo 'spec.image' en el Domain YAML:
+
+  spec:
+    image: "mad.ocir.io/axojlwfywuhi/oke/weblogic:14.1.2.0.0-p37650720"
+    imagePullSecrets:
+      - name: ocir-secret
+    configuration:
+      model:
+        auxiliaryImages:
+          - image: "mad.ocir.io/axojlwfywuhi/oke/telco-wcv2:v1.1"  # Su imagen auxiliar actual
+
+Parches aplicados: 37650720_14.1.2.0.0

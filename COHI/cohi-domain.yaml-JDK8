@@ -1,0 +1,165 @@
+# Cree los recursos del cluster antes que el recurso del dominio que les hace referencia.
+#
+apiVersion: weblogic.oracle/v1
+kind: Cluster
+metadata:
+  name: cohi-cohicohcche
+  namespace: cohi-ns
+  labels:
+    weblogic.domainUID: cohi
+spec:
+  clusterName: COHIcohCCHE
+  replicas: 4
+  serverPod:
+    env:
+      - name: JAVA_OPTIONS
+        value: >-
+          -Dweblogic.StdoutDebugEnabled=false
+          -Djava.security.egd=file:/dev/./urandom
+          -Dweblogic.security.SSL.ignoreHostnameVerification=true
+          -Dmovistar.coherence.proxyenabled.infra=false
+          -Dmovistar.coherence.proxyenabled.servicio=false
+          -Dmovistar.coherence.proxyenabled.var=false
+          -Dmovistar.coherence.proxyenabled.drot=false
+          -Dmovistar.coherence.proxyenabled.servicio.cata=false
+          -Dmovistar.coherence.cacheenabled.infra=true
+          -Dmovistar.coherence.cacheenabled.servicio=true
+          -Dmovistar.coherence.cacheenabled.var=true
+          -Dmovistar.coherence.cacheenabled.drot=true
+          -Dmovistar.coherence.cacheenabled.servicio.cata=true
+---
+apiVersion: weblogic.oracle/v1
+kind: Cluster
+metadata:
+  name: cohi-cohicohprxy
+  namespace: cohi-ns
+  labels:
+    weblogic.domainUID: cohi
+spec:
+  clusterName: COHIcohPRXY
+  replicas: 2
+  serverPod:
+    env:
+      - name: JAVA_OPTIONS
+        value: >-
+          -Dweblogic.StdoutDebugEnabled=false
+          -Djava.security.egd=file:/dev/./urandom
+          -Dweblogic.security.SSL.ignoreHostnameVerification=true
+          -Dmovistar.coherence.proxyaddress=0.0.0.0
+          -Dmovistar.coherence.proxyport.infra=36102
+          -Dmovistar.coherence.proxyport.servicio=36112
+          -Dmovistar.coherence.proxyport.var=36122
+          -Dmovistar.coherence.proxyport.drot=36132
+          -Dmovistar.coherence.proxyport.servicio.cata=36142
+          -Dmovistar.coherence.proxyenabled.infra=true
+          -Dmovistar.coherence.proxyenabled.servicio=true
+          -Dmovistar.coherence.proxyenabled.var=true
+          -Dmovistar.coherence.proxyenabled.drot=true
+          -Dmovistar.coherence.proxyenabled.servicio.cata=true
+          -Dmovistar.coherence.cacheenabled.infra=false
+          -Dmovistar.coherence.cacheenabled.servicio=false
+          -Dmovistar.coherence.cacheenabled.var=false
+          -Dmovistar.coherence.cacheenabled.drot=false
+          -Dmovistar.coherence.cacheenabled.servicio.cata=false
+---
+apiVersion: weblogic.oracle/v1
+kind: Cluster
+metadata:
+  name: cohi-cohicohtest
+  namespace: cohi-ns
+  labels:
+    weblogic.domainUID: cohi
+spec:
+  clusterName: COHIcohTEST
+  replicas: 1
+  serverPod:
+    env:
+      - name: JAVA_OPTIONS
+        value: >-
+          -Dweblogic.StdoutDebugEnabled=false
+          -Djava.security.egd=file:/dev/./urandom
+          -Dweblogic.security.SSL.ignoreHostnameVerification=true
+          -Dcoherence.cacheconfig=/coherence-config/coherence-cache-config.xml
+    volumes:
+      - name: coherence-config
+        configMap:
+          name: cache-config-client-test
+    volumeMounts:
+      - name: coherence-config
+        mountPath: /coherence-config
+        readOnly: true
+---
+apiVersion: weblogic.oracle/v9
+kind: Domain
+metadata:
+  name: cohi
+  namespace: cohi-ns
+  labels:
+    weblogic.domainUID: cohi
+spec:
+  domainUID: cohi
+  domainHomeSourceType: FromModel
+  image: container-registry.oracle.com/middleware/weblogic:14.1.1.0-8-ol8
+  imagePullPolicy: Always
+  imagePullSecrets:
+    - name: ocr
+    - name: ocir
+  introspectVersion: '115'
+  webLogicCredentialsSecret:
+    name: cohi-weblogic-credentials
+  domainHome: /u01/domains/COHI
+  serverPod:
+    env:
+      - name: JAVA_OPTIONS
+        value: >-
+          -Dweblogic.StdoutDebugEnabled=false
+          -Djava.security.egd=file:/dev/./urandom
+          -Dweblogic.security.SSL.ignoreHostnameVerification=true
+      - name: USER_MEM_ARGS
+        value: '-Xms64m -Xmx256m'
+    initContainers:
+      - name: init-directories
+        image: container-registry.oracle.com/middleware/weblogic:14.1.1.0-8-ol8
+        command: 
+          - sh
+          - -c
+          - |
+            mkdir -p /u01/domains/COHI/servers/COHIcohCCHE01/data/ldap/ldapfiles
+            mkdir -p /u01/domains/COHI/servers/COHIcohCCHE02/data/ldap/ldapfiles
+            mkdir -p /u01/domains/COHI/servers/COHIcohCCHE03/data/ldap/ldapfiles
+            mkdir -p /u01/domains/COHI/servers/COHIcohCCHE04/data/ldap/ldapfiles
+            mkdir -p /u01/domains/COHI/servers/COHIcohPRXY01/data/ldap/ldapfiles
+            mkdir -p /u01/domains/COHI/servers/COHIcohPRXY02/data/ldap/ldapfiles
+            mkdir -p /u01/domains/COHI/servers/COHIcohTEST01/data/ldap/ldapfiles
+    livenessProbe:
+      initialDelaySeconds: 300      # 10 minutos para primer arranque
+      timeoutSeconds: 10
+      periodSeconds: 45
+      failureThreshold: 3
+    readinessProbe:
+      initialDelaySeconds: 300      # 5 minutos
+      timeoutSeconds: 5
+      periodSeconds: 15
+  configuration:
+    model:
+      auxiliaryImages:
+        - image: mad.ocir.io/axojlwfywuhi/oke/telco-cohi:v1.0
+          imagePullPolicy: Always
+      domainType: WLS
+      runtimeEncryptionSecret: cohi-runtime-encryption-secret
+      configMap: cohi-config-map
+    secrets:
+      - cohi-jdbc-uod-catalg1-ds-xa
+      - cohi-jdbc-uod-client1-ds-xa
+      - cohi-jdbc-uod-cnales1-ds-xa
+      - cohi-jdbc-uod-cobros1-ds-xa
+      - cohi-jdbc-uod-cocote1-ds-xa
+      - cohi-jdbc-uod-gestor1-ds-xa
+      - cohi-jdbc-uod-giftra1-ds-xa
+      - cohi-jdbc-uod-gisste1-ds
+      - cohi-jdbc-uod-inubic1-ds-xa
+    introspectorJobActiveDeadlineSeconds: 1200
+  clusters:
+    - name: cohi-cohicohcche
+    - name: cohi-cohicohprxy
+    - name: cohi-cohicohtest

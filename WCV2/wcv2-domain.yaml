@@ -1,0 +1,111 @@
+# Cree los recursos del cluster antes que el recurso del dominio que les hace referencia.
+#
+apiVersion: weblogic.oracle/v1
+kind: Cluster
+metadata:
+  name: wcv2-wcv2wlncov3
+  namespace: wcv2-ns
+  labels:
+    weblogic.domainUID: wcv2
+spec:
+  clusterName: WCV2wlnCOV3
+  replicas: 1
+  
+---  
+  
+apiVersion: weblogic.oracle/v1
+kind: Cluster
+metadata:
+  name: wcv2-wcv2wlncov4
+  namespace: wcv2-ns
+  labels:
+    weblogic.domainUID: wcv2
+spec:
+  clusterName: WCV2wlnCOV4
+  replicas: 1
+---
+apiVersion: weblogic.oracle/v9
+kind: Domain
+metadata:
+  name: wcv2
+  namespace: wcv2-ns
+  labels:
+    weblogic.domainUID: wcv2
+spec:
+  domainUID: wcv2
+  domainHomeSourceType: FromModel
+  image: container-registry.oracle.com/middleware/weblogic:14.1.1.0-11-ol8
+  imagePullPolicy: IfNotPresent
+  introspectVersion: '202'
+  webLogicCredentialsSecret:
+    name: wcv2-weblogic-credentials
+  domainHome: /u01/domains/WCV2
+  serverPod:
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: weblogic.serverName
+              operator: In
+              values:
+              - wcv2wlncov401
+              - wcv2wlncov301
+          topologyKey: kubernetes.io/hostname
+    env:
+      - name: JAVA_OPTIONS
+        value: >-
+          -Dweblogic.StdoutDebugEnabled=false
+          -Djava.security.egd=file:/dev/./urandom
+          -Dweblogic.security.SSL.ignoreHostnameVerification=true
+          -Dtangosol.coherence.cacheconfig=/coherenceclient/cache_config_client.xml
+          -Dtangosol.coherence.override=/coherenceclient/tangosol-coherence-override.xml
+          -Dtap.cache.config-file=/coherenceclient/cache_config_client.xml
+          -Dtap.config-server.connection-string=zookeeper-0.zookeeper-headless.zookeeper.svc.cluster.local:2181
+          -DTelcoPropertySource.zookeper.connectionString=zookeeper-0.zookeeper-headless.zookeeper.svc.cluster.local:2181
+          -Dweblogic.debug.DebugRunLevel=true
+          -Dweblogic.log.StdoutSeverity=Debug
+      - name: USER_MEM_ARGS
+        value: '-Xms2048m -Xmx4096m'
+      - name: tap.config-server.connection-string
+        value: 'zookeeper-0.zookeeper-headless.zookeeper.svc.cluster.local:2181'
+      - name: tap.cache.config-file
+        value: /coherenceclient/cache_config_client.xml
+    volumeMounts:
+      - mountPath: /coherenceclient
+        name: coherence-vol
+    volumes:
+      - name: coherence-vol
+        configMap:
+          name: cache-config-client
+    # Probes ajustados para arranque lento
+    livenessProbe:
+      initialDelaySeconds: 120
+      periodSeconds: 30
+      timeoutSeconds: 10
+      failureThreshold: 10
+    startupProbe:
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 60
+  configuration:
+    model:
+      auxiliaryImages:
+        - image: mad.ocir.io/axojlwfywuhi/oke/telco-wcv2:v1.2
+          imagePullPolicy: Always
+      domainType: WLS
+      runtimeEncryptionSecret: wcv2-runtime-encryption-secret
+      configMap: wcv2-config-map
+    secrets:
+      - wcv2-jdbc-uod-client1-ds-xa
+      - wcv2-jdbc-uod-cocote1-ds-xa
+      - wcv2-jdbc-uod-reglas1-ds-xa
+      - wcv2-jdbc-uod-ventas1-ds-xa
+    introspectorJobActiveDeadlineSeconds: 900
+  clusters:
+    - name: wcv2-wcv2wlncov3
+    - name: wcv2-wcv2wlncov4
+  imagePullSecrets:
+    - name: ocr
+    - name: ocir

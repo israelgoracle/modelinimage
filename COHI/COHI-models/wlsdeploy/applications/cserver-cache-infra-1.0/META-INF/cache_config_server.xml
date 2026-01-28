@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<cache-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.oracle.com/coherence/coherence-cache-config" xsi:schemaLocation="http://xmlns.oracle.com/coherence/coherence-cache-config coherence-cache-config.xsd">
+    <scope-name>telefonica.coherence.infra</scope-name>
+    <caching-scheme-mapping>
+        <cache-mapping>
+            <cache-name>CACHE_UDDI</cache-name>
+            <scheme-name>TELCO-distributed-infra</scheme-name>
+            <init-params>
+                <init-param>
+                    <param-name>expiry-delay</param-name>
+                    <param-value>1d</param-value>
+                </init-param>
+            </init-params>
+        </cache-mapping>
+        <cache-mapping>
+            <cache-name>CACHE_SEGU</cache-name>
+            <scheme-name>TELCO-distributed-infra</scheme-name>
+            <init-params>
+                <init-param>
+                    <param-name>expiry-delay</param-name>
+                    <param-value>4d</param-value>
+                </init-param>
+            </init-params>
+        </cache-mapping>
+        <cache-mapping>
+            <cache-name>CACHE_SCRTYCTX</cache-name>
+            <scheme-name>TELCO-distributed-infra</scheme-name>
+            <init-params>
+                <init-param>
+                    <param-name>expiry-delay</param-name>
+                    <param-value>9h</param-value>
+                </init-param>
+            </init-params>
+        </cache-mapping>
+    </caching-scheme-mapping>
+    <caching-schemes>
+        <!-- Proxy config  -->
+        <proxy-scheme>
+            <scheme-name>COHI-proxy-infra</scheme-name>
+            <service-name>COHI-ExtendTcpProxyService-INFRA</service-name>
+            <thread-count-min>16</thread-count-min>
+            <acceptor-config>
+                <tcp-acceptor>
+                    <local-address>
+                        <address system-property="movistar.coherence.proxyaddress"/>
+                        <port system-property="movistar.coherence.proxyport.infra">1</port>
+                    </local-address>
+                </tcp-acceptor>
+            </acceptor-config>
+            <!-- Only true for Proxy roles-->
+            <autostart system-property="movistar.coherence.proxyenabled.infra">false</autostart>
+        </proxy-scheme>
+        <distributed-scheme>
+            <scheme-name>TELCO-distributed-infra</scheme-name>
+            <service-name>TELCO-DistributedCache-INFRA</service-name>
+            <thread-count-min>4</thread-count-min>
+            <backing-map-scheme>
+                <local-scheme>
+                    <eviction-policy>LRU</eviction-policy>
+                    <high-units>{back-size-limit 256}</high-units>
+                    <unit-calculator>BINARY</unit-calculator>
+                    <unit-factor>1048576</unit-factor>
+                    <expiry-delay>{expiry-delay}</expiry-delay>
+                </local-scheme>
+            </backing-map-scheme>
+            <autostart system-property="movistar.coherence.cacheenabled.infra">false</autostart>
+        </distributed-scheme>
+    </caching-schemes>
+</cache-config>

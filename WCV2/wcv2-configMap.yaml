@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wcv2-config-map
+  namespace: wcv2-ns
+data:
+  wcv2-overrides.properties: ''

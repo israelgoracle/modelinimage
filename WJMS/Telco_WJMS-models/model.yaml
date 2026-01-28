@@ -1,0 +1,933 @@
+domainInfo:
+    AdminUserName: '@@SECRET:__weblogic-credentials__:username@@'
+    AdminPassword: '@@SECRET:__weblogic-credentials__:password@@'
+topology:
+    Name: WJMS
+    AdminServerName: WJMSwladmin0
+    ProductionModeEnabled: true
+    DomainVersion: 14.1.2.0.0
+    JTA:
+        MaxResourceUnavailableMillis: 600000
+        MaxXACallMillis: 180000
+    Log:
+        FileMinSize: 5000
+        RotateLogOnStartup: false
+        DomainLogBroadcasterBufferSize: 10
+        RotationType: byTime
+        MemoryBufferSize: 500
+    Cluster:
+        WJMSjmsCOCO:
+            ClusterAddress: '@@PROP:Cluster.WJMSjmsCOCO.ClusterAddress@@'
+            JTACluster:
+                MaxResourceUnavailableMillis: 600000
+                MaxXACallMillis: 180000
+        WJMSjmsWJMS:
+            ClusterAddress: '@@PROP:Cluster.WJMSjmsWJMS.ClusterAddress@@'
+            JTACluster:
+                MaxResourceUnavailableMillis: 600000
+                MaxXACallMillis: 180000
+    Server:
+        WJMSjmsCOCO01:
+            GracefulShutdownTimeout: 60
+            MaxMessageSize: 100000000
+            ServerLifeCycleTimeoutVal: 120
+            AdministrationPort: '@@PROP:Server.WJMSjmsCOCO01.AdministrationPort@@'
+            StuckThreadTimerInterval: 20
+            StagingMode: nostage
+            ClasspathServletSecureModeEnabled: true
+            MaxOpenSockCount: 2000
+            ListenPort: '@@PROP:Server.WJMSjmsCOCO01.ListenPort@@'
+            Cluster: WJMSjmsCOCO
+            DataSource:
+                DataSourceLogFile:
+                    FileCount: 100
+                    FileMinSize: 5000
+                    RotateLogOnStartup: false
+            JTAMigratableTarget:
+                UserPreferredServer: WJMSjmsCOCO01
+                Cluster: WJMSjmsCOCO
+            Log:
+                DomainLogBroadcastSeverity: 'Off'
+                LogFileSeverity: Info
+                FileMinSize: 5000
+                StdoutSeverity: 'Off'
+                DomainLogBroadcasterBufferSize: 10
+                RotationType: bySize
+                RedirectStdoutToServerLogEnabled: true
+                RedirectStderrToServerLogEnabled: true
+                MemoryBufferSize: 500
+                FileCount: 10
+                RotateLogOnStartup: true
+            ServerDiagnosticConfig:
+                WldfDiagnosticVolume: 'Off'
+            SingleSignOnServices:
+                WantAssertionsSigned: true
+            WebServer:
+                MaxPostSize: 100000000
+                PostTimeoutSecs: 20
+                HttpsKeepAliveSecs: 30
+                KeepAliveSecs: 15
+                WebServerLog:
+                    RotationType: byTime
+                    LogFileFormat: extended
+                    FileMinSize: 5000
+                    ELFFields: c-ip date time cs-method cs-uri sc-status bytes time-taken
+                        ctx-ecid x-CocoIdGeneral x-CocoIdProceso x-CocoIdMensaje x-CocoIdUsuario
+                        x-CocoOperacion x-CocoIdOrigen cs(SEGU.provenience)
+                    RotateLogOnStartup: false
+            WebService:
+                WebServiceReliability:
+                    NonBufferedDestination: false
+        WJMSjmsWJMS01:
+            GracefulShutdownTimeout: 60
+            StuckThreadMaxTime: 60
+            MSIFileReplicationEnabled: true
+            MaxMessageSize: 100000000
+            ServerLifeCycleTimeoutVal: 120
+            AdministrationPort: '@@PROP:Server.WJMSjmsWJMS01.AdministrationPort@@'
+            StuckThreadTimerInterval: 20
+            StagingMode: nostage
+            ClasspathServletSecureModeEnabled: true
+            MaxOpenSockCount: 2000
+            ListenPort: '@@PROP:Server.WJMSjmsWJMS01.ListenPort@@'
+            StagingDirectoryName: '@@DOMAIN_HOME@@/tmp/servers/WJMSjmsWJMS01/stage'
+            Cluster: WJMSjmsWJMS
+            DataSource:
+                DataSourceLogFile:
+                    FileCount: 100
+                    FileMinSize: 5000
+                    RotateLogOnStartup: false
+            JTAMigratableTarget:
+                UserPreferredServer: WJMSjmsWJMS01
+                Cluster: WJMSjmsWJMS
+            Log:
+                DomainLogBroadcastSeverity: 'Off'
+                LoggerSeverity: Trace
+                LogFileSeverity: Info
+                FileMinSize: 5000
+                StdoutSeverity: 'Off'
+                DomainLogBroadcasterBufferSize: 10
+                DateFormatPattern: MMM d, yyyy h:mm:ss a z
+                RotationType: bySize
+                MemoryBufferSeverity: Debug
+                RedirectStdoutToServerLogEnabled: true
+                RedirectStderrToServerLogEnabled: true
+                MemoryBufferSize: 500
+                FileCount: 10
+                RotateLogOnStartup: true
+            ServerDebug:
+                DebugScope:
+                    weblogic.jms.dispatcher: {}
+            ServerDiagnosticConfig:
+                WldfDiagnosticVolume: 'Off'
+            SingleSignOnServices:
+                WantAssertionsSigned: true
+            WebServer:
+                MaxPostSize: 100000000
+                PostTimeoutSecs: 20
+                HttpsKeepAliveSecs: 30
+                KeepAliveSecs: 15
+                WebServerLog:
+                    RotationType: byTime
+                    LogFileFormat: extended
+                    FileMinSize: 5000
+                    ELFFields: c-ip date time cs-method cs-uri sc-status bytes time-taken
+                        ctx-ecid x-CocoIdGeneral x-CocoIdProceso x-CocoIdMensaje x-CocoIdUsuario
+                        x-CocoOperacion x-CocoIdOrigen cs(SEGU.provenience)
+                    RotateLogOnStartup: false
+            WebService:
+                WebServiceReliability:
+                    NonBufferedDestination: false
+        WJMSwladmin0:
+            GracefulShutdownTimeout: 60
+            MaxMessageSize: 100000000
+            ServerLifeCycleTimeoutVal: 120
+            AdministrationPort: '@@PROP:Server.WJMSwladmin0.AdministrationPort@@'
+            StuckThreadTimerInterval: 20
+            StagingMode: nostage
+            ClasspathServletSecureModeEnabled: true
+            MaxOpenSockCount: 2000
+            ListenPort: '@@PROP:Server.WJMSwladmin0.ListenPort@@'
+            DataSource:
+                DataSourceLogFile:
+                    FileCount: 100
+                    FileMinSize: 5000
+                    RotateLogOnStartup: false
+            Log:
+                DomainLogBroadcastSeverity: 'Off'
+                LogFileSeverity: Info
+                FileMinSize: 5000
+                StdoutSeverity: 'Off'
+                DomainLogBroadcasterBufferSize: 10
+                RotationType: bySize
+                MemoryBufferSeverity: Debug
+                RedirectStdoutToServerLogEnabled: true
+                RedirectStderrToServerLogEnabled: true
+                MemoryBufferSize: 500
+                FileCount: 10
+                RotateLogOnStartup: true
+            ServerDiagnosticConfig:
+                WldfDiagnosticVolume: 'Off'
+            SingleSignOnServices:
+                WantAssertionsSigned: true
+            WebServer:
+                MaxPostSize: 100000000
+                PostTimeoutSecs: 20
+                HttpsKeepAliveSecs: 30
+                KeepAliveSecs: 15
+                WebServerLog:
+                    RotationType: byTime
+                    LogFileFormat: extended
+                    FileMinSize: 5000
+                    ELFFields: c-ip date time cs-method cs-uri sc-status bytes time-taken
+                        ctx-ecid
+                    RotateLogOnStartup: false
+    MigratableTarget:
+        WJMSjmsCOCO01 (migratable):
+            Notes: This is a system generated default migratable target for a server.
+                Do not delete manually.
+            UserPreferredServer: WJMSjmsCOCO01
+            Cluster: WJMSjmsCOCO
+        WJMSjmsWJMS01 (migratable):
+            Notes: This is a system generated default migratable target for a server.
+                Do not delete manually.
+            UserPreferredServer: WJMSjmsWJMS01
+            Cluster: WJMSjmsWJMS
+    SecurityConfiguration:
+        EnforceValidBasicAuthCredentials: false
+        Realm:
+            myrealm:
+                UserLockoutManager:
+                    LockoutResetDuration: 60
+resources:
+    SelfTuning:
+        Capacity:
+            Cap_COCO:
+                Count: 30
+                Target: WJMSjmsCOCO
+        MaxThreadsConstraint:
+            MaxThreads_COCO:
+                Count: 30
+                Target: WJMSjmsCOCO
+        MinThreadsConstraint:
+            MinThreads_COCO:
+                Count: 1
+                Target: WJMSjmsCOCO
+        WorkManager:
+            WM_COCO:
+                MinThreadsConstraint: MinThreads_COCO
+                MaxThreadsConstraint: MaxThreads_COCO
+                Target: WJMSjmsCOCO
+                Capacity: Cap_COCO
+    WebAppContainer:
+        ServletReloadCheckSecs: -1
+    JDBCSystemResource:
+        UJMS_TLCBAM_DS:
+            Target: WJMSjmsWJMS
+            JdbcResource:
+                DatasourceType: GENERIC
+                JDBCConnectionPoolParams:
+                    InactiveConnectionTimeoutSeconds: 1200
+                    TestConnectionsOnReserve: true
+                    TestTableName: SQL SELECT 1 FROM DUAL
+                JDBCDataSourceParams:
+                    JNDIName: jdbc/UJMS_TLCBAM_DS
+                    GlobalTransactionsProtocol: None
+                JDBCDriverParams:
+                    DriverName: oracle.jdbc.OracleDriver
+                    PasswordEncrypted: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-ujms-tlcbam-ds:password@@'
+                    URL: '@@PROP:JDBC.UJMS_TLCBAM_DS.URL@@'
+                    Properties:
+                        user:
+                            Value: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-ujms-tlcbam-ds:username@@'
+        UJMS_TLCSIG_DS:
+            Target: WJMSjmsCOCO,WJMSjmsWJMS
+            JdbcResource:
+                DatasourceType: GENERIC
+                JDBCConnectionPoolParams:
+                    InactiveConnectionTimeoutSeconds: 1200
+                    TestConnectionsOnReserve: true
+                    TestTableName: SQL SELECT 1 FROM DUAL
+                JDBCDataSourceParams:
+                    JNDIName: jdbc/UJMS_TLCSIG_DS
+                    GlobalTransactionsProtocol: None
+                JDBCDriverParams:
+                    DriverName: oracle.jdbc.OracleDriver
+                    PasswordEncrypted: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-ujms-tlcsig-ds:password@@'
+                    URL: '@@PROP:JDBC.UJMS_TLCSIG_DS.URL@@'
+                    Properties:
+                        user:
+                            Value: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-ujms-tlcsig-ds:username@@'
+    JDBCStore:
+        BAMANDD_JDBCStore1:
+            PrefixName: BAMANDD_WJMS
+            Target: WJMSjmsWJMS01 (migratable)
+            DataSource: UJMS_TLCBAM_DS
+        PROXYCOCO_JDBCSTore1:
+            PrefixName: PROXY_WJMS1
+            Target: WJMSjmsCOCO01 (migratable)
+            DataSource: UJMS_TLCSIG_DS
+        SIGGCOM_JDBCStore1:
+            Target: WJMSjmsWJMS01 (migratable)
+            DataSource: UJMS_TLCSIG_DS
+    JMSServer:
+        BAMANDD_JMSServer1:
+            Target: WJMSjmsWJMS01 (migratable)
+            PersistentStore: BAMANDD_JDBCStore1
+            JmsMessageLogFile:
+                FileCount: 100
+                DateFormatPattern: MMM d, yyyy h:mm:ss,SSS a z
+                FileMinSize: 5000
+                RotateLogOnStartup: false
+        PROXYCOCO_JMSServer1:
+            Target: WJMSjmsCOCO01 (migratable)
+            PersistentStore: PROXYCOCO_JDBCSTore1
+            JmsMessageLogFile:
+                FileCount: 100
+                DateFormatPattern: MMM d, yyyy h:mm:ss,SSS a z
+                FileMinSize: 5000
+                RotateLogOnStartup: false
+        SIGGCOM_JMSServer1:
+            MessagesMaximum: 10000
+            BytesMaximum: 100000000
+            Target: WJMSjmsWJMS01 (migratable)
+            PersistentStore: SIGGCOM_JDBCStore1
+            JmsMessageLogFile:
+                FileCount: 100
+                DateFormatPattern: MMM d, yyyy h:mm:ss,SSS a z
+                FileMinSize: 5000
+                RotateLogOnStartup: false
+    JMSSystemResource:
+        BAMANDD_module:
+            Target: WJMSjmsWJMS
+            SubDeployment:
+                BAMCANA_subdeployment1:
+                    Target: BAMANDD_JMSServer1
+                BAMCANS_subdeployment1:
+                    Target: BAMANDD_JMSServer1
+                BAMCOBT_subdeployment1:
+                    Target: BAMANDD_JMSServer1
+                BAMCONT_subdeployment1:
+                    Target: BAMANDD_JMSServer1
+                BAMFACT_subdeployment1:
+                    Target: BAMANDD_JMSServer1
+                BAMFUTR_subdeployment1:
+                    Target: BAMANDD_JMSServer1
+                BAMGCLI_subdeployment1:
+                    Target: BAMANDD_JMSServer1
+                BAMGCOM_subdeployment1:
+                    Target: BAMANDD_JMSServer1
+                BAMGTIN_subdeployment1:
+                    Target: BAMANDD_JMSServer1
+                BAMINCL_subdeployment1:
+                    Target: BAMANDD_JMSServer1
+                BAMLOGI_subdeployment1:
+                    Target: BAMANDD_JMSServer1
+                BAMPRCL_subdeployment1:
+                    Target: BAMANDD_JMSServer1
+                BAMPROV_subdeployment1:
+                    Target: BAMANDD_JMSServer1
+                BAMPRSR_subdeployment1:
+                    Target: BAMANDD_JMSServer1
+                BAMPRTE_subdeployment1:
+                    Target: BAMANDD_JMSServer1
+                BAMRETE_subdeployment1:
+                    Target: BAMANDD_JMSServer1
+            JmsResource:
+                ConnectionFactory:
+                    BAMCANA_CF:
+                        DefaultTargetingEnabled: true
+                        JNDIName: jms/CANA/bam_CF
+                    BAMCANS_CF:
+                        DefaultTargetingEnabled: true
+                        JNDIName: jms/CANS/bam_CF
+                    BAMCOBT_CF:
+                        DefaultTargetingEnabled: true
+                        JNDIName: jms/COBT/bam_CF
+                    BAMCONT_CF:
+                        DefaultTargetingEnabled: true
+                        JNDIName: jms/CONT/bam_CF
+                        ClientParams:
+                            SubscriptionSharingPolicy: Sharable
+                    BAMFACT_CF:
+                        DefaultTargetingEnabled: true
+                        JNDIName: jms/FACT/bam_CF
+                    BAMFUTR_CF:
+                        DefaultTargetingEnabled: true
+                        JNDIName: jms/FUTR/bam_CF
+                    BAMGCLI_CF:
+                        DefaultTargetingEnabled: true
+                        JNDIName: jms/GCLI/bam_CF
+                    BAMGCOM_CF:
+                        DefaultTargetingEnabled: true
+                        JNDIName: jms/GCOM/bam_CF
+                    BAMGTIN_CF:
+                        DefaultTargetingEnabled: true
+                        JNDIName: jms/GTIN/bam_CF
+                    BAMINCL_CF:
+                        DefaultTargetingEnabled: true
+                        JNDIName: jms/INCL/bam_CF
+                    BAMLOGI_CF:
+                        DefaultTargetingEnabled: true
+                        JNDIName: jms/LOGI/bam_CF
+                    BAMPRCL_CF:
+                        DefaultTargetingEnabled: true
+                        JNDIName: jms/PRCL/bam_CF
+                    BAMPROV_CF:
+                        DefaultTargetingEnabled: true
+                        JNDIName: jms/PROV/bam_CF
+                    BAMPRSR_CF:
+                        DefaultTargetingEnabled: true
+                        JNDIName: jms/PRSR/bam_CF
+                    BAMPRTE_CF:
+                        DefaultTargetingEnabled: true
+                        JNDIName: jms/PRTE/bam_CF
+                    BAMRETE_CF:
+                        DefaultTargetingEnabled: true
+                        JNDIName: jms/RETE/bam_CF
+                    BAM_CF:
+                        DefaultTargetingEnabled: true
+                        JNDIName: jms/ANDD/BAM_CF
+                Queue:
+                    BAMCANS_QUEUE:
+                        JNDIName: jms/CANS/bam_QUEUE
+                        SubDeploymentName: BAMCANS_subdeployment1
+                UniformDistributedQueue:
+                    BAMCANA_QUEUE:
+                        JNDIName: jms/CANA/bam_QUEUE
+                        SubDeploymentName: BAMCANA_subdeployment1
+                    BAMCOBT_QUEUE:
+                        JNDIName: jms/COBT/bam_QUEUE
+                        SubDeploymentName: BAMCOBT_subdeployment1
+                    BAMCONT_QUEUE:
+                        JNDIName: jms/CONT/bam_QUEUE
+                        SubDeploymentName: BAMCONT_subdeployment1
+                    BAMFACT_QUEUE:
+                        JNDIName: jms/FACT/bam_QUEUE
+                        SubDeploymentName: BAMFACT_subdeployment1
+                    BAMFUTR_QUEUE:
+                        JNDIName: jms/FUTR/bam_QUEUE
+                        SubDeploymentName: BAMFUTR_subdeployment1
+                    BAMGCLI_QUEUE:
+                        JNDIName: jms/GCLI/bam_QUEUE
+                        SubDeploymentName: BAMGCLI_subdeployment1
+                    BAMGCOM_QUEUE:
+                        JNDIName: jms/GCOM/bam_QUEUE
+                        SubDeploymentName: BAMGCOM_subdeployment1
+                    BAMGTIN_QUEUE:
+                        JNDIName: jms/GTIN/bam_QUEUE
+                        SubDeploymentName: BAMGTIN_subdeployment1
+                    BAMINCL_QUEUE:
+                        JNDIName: jms/INCL/bam_QUEUE
+                        SubDeploymentName: BAMINCL_subdeployment1
+                    BAMLOGI_QUEUE:
+                        JNDIName: jms/LOGI/bam_QUEUE
+                        SubDeploymentName: BAMLOGI_subdeployment1
+                    BAMPRCL_QUEUE:
+                        JNDIName: jms/PRCL/bam_QUEUE
+                        SubDeploymentName: BAMPRCL_subdeployment1
+                    BAMPROV_QUEUE:
+                        JNDIName: jms/PROV/bam_QUEUE
+                        SubDeploymentName: BAMPROV_subdeployment1
+                    BAMPRSR_QUEUE:
+                        JNDIName: jms/PRSR/bam_QUEUE
+                        SubDeploymentName: BAMPRSR_subdeployment1
+                    BAMPRTE_QUEUE:
+                        JNDIName: jms/PRTE/bam_QUEUE
+                        SubDeploymentName: BAMPRTE_subdeployment1
+                    BAMRETE_QUEUE:
+                        JNDIName: jms/RETE/bam_QUEUE
+                        SubDeploymentName: BAMRETE_subdeployment1
+        SIG_module:
+            Target: WJMSjmsWJMS
+            SubDeployment:
+                SIGGCOM_subdeployment1:
+                    Target: SIGGCOM_JMSServer1
+            JmsResource:
+                ConnectionFactory:
+                    sig_CF:
+                        DefaultTargetingEnabled: true
+                        JNDIName: jms/sig_CF
+                        ClientParams:
+                            ClientIdPolicy: Unrestricted
+                            SubscriptionSharingPolicy: Sharable
+                        DefaultDeliveryParams:
+                            DefaultTimeToLive: 604800000
+                Quota:
+                    QUOTA_PruebaQuota:
+                        MessagesMaximum: 10
+                        BytesMaximum: 5000
+                UniformDistributedQueue:
+                    SIGCONT_QUEUE_ERROR:
+                        JNDIName: jms/CONT/SIGCONT_QUEUE_ERROR
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGGCLI_QUEUE_ERROR:
+                        JNDIName: jms/GCLI/SIGGCLI _QUEUE_ERROR
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGGCOM_QUEUE:
+                        JNDIName: jms/GCOM/SIGGCOM_QUEUE
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            RedeliveryLimit: 0
+                            ErrorDestination: SIGGCOM_QUEUE_ERROR
+                    SIGGCOM_QUEUE_ERROR:
+                        JNDIName: jms/GCOM/SIGGCOM_QUEUE_ERROR
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGMATE_QUEUE_ERROR:
+                        JNDIName: jms/MATE/sig_QUEUE_ERROR
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGTRAN_QUEUE_ERROR:
+                        JNDIName: jms/TRAN/sig_QUEUE_ERROR
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                        DeliveryParamsOverrides:
+                            TimeToLive: 900000
+                            DeliveryMode: Persistent
+                UniformDistributedTopic:
+                    Prueba:
+                        JNDIName: jms/Prueba
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                        ForwardingPolicy: Partitioned
+                    SIGC3604P001_TOPIC:
+                        JNDIName: jms/C360/sig4P001_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGC360DTS01_TOPIC:
+                        JNDIName: jms/C360/sigDTS01_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGC360NSCO1_TOPIC:
+                        JNDIName: jms/C360/sigNSCO1_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGC360QG001_TOPIC:
+                        JNDIName: jms/C360/sigQG001_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGC360TELCO_TOPIC:
+                        JNDIName: jms/C360/sigTELCO_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGC360TUENT_TOPIC:
+                        JNDIName: jms/C360/sigTUENT_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGC360_TOPIC:
+                        JNDIName: jms/C360/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGCANA_TOPIC:
+                        JNDIName: jms/CANA/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGCANS_TOPIC:
+                        JNDIName: jms/CANS/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                        MessageLoggingParams:
+                            MessageLoggingFormat: JMSDestination,JMSMessageID,JMSRedelivered,JMSXDeliveryCount
+                    SIGCATA_TOPIC:
+                        JNDIName: jms/CATA/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGCOBT_TOPIC:
+                        JNDIName: jms/COBT/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGCONT_TOPIC:
+                        JNDIName: jms/CONT/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Discard
+                            RedeliveryLimit: 0
+                    SIGCRPL_TOPIC:
+                        JNDIName: jms/CRPL/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGFACT_TOPIC:
+                        JNDIName: jms/FACT/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGFUTR_TOPIC:
+                        JNDIName: jms/FUTR/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGGCLI_TOPIC:
+                        JNDIName: jms/GCLI/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Discard
+                            RedeliveryLimit: 0
+                    SIGGCOM_TOPIC:
+                        JNDIName: jms/GCOM/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Discard
+                    SIGGDRE_TOPIC:
+                        JNDIName: jms/GDRE/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGGEAL_TOPIC:
+                        JNDIName: jms/GEAL/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGGERE_TOPIC:
+                        JNDIName: jms/GERE/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGGEST_TOPIC:
+                        JNDIName: jms/GEST/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGGISS_TOPIC:
+                        JNDIName: jms/GISS/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGGSTR_TOPIC:
+                        JNDIName: jms/GSTR/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGGTIN_TOPIC:
+                        JNDIName: jms/GTIN/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                        ForwardingPolicy: Partitioned
+                    SIGINCL_TOPIC:
+                        JNDIName: jms/INCL/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGINFA_TOPIC:
+                        JNDIName: jms/INFA/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGINRE_TOPIC:
+                        JNDIName: jms/INRE/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGLOGI_TOPIC:
+                        JNDIName: jms/LOGI/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGMATE_TOPIC:
+                        JNDIName: jms/MATE/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Discard
+                            RedeliveryLimit: 3000
+                    SIGPACO_TOPIC:
+                        JNDIName: jms/PACO/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGPATE_TOPIC:
+                        JNDIName: jms/PATE/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGPRCL_TOPIC:
+                        JNDIName: jms/PRCL/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGPROV_TOPIC:
+                        JNDIName: jms/PROV/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGPRSR_TOPIC:
+                        JNDIName: jms/PRSR/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGPRTE_TOPIC:
+                        JNDIName: jms/PRTE/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGPRUE_TOPIC:
+                        JNDIName: jms/PRUE/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGPTER_TOPIC:
+                        JNDIName: jms/PTER/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGRETE_TOPIC:
+                        JNDIName: jms/RETE/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGSEGU_TOPIC:
+                        JNDIName: jms/SEGU/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGTRAN_TOPIC:
+                        JNDIName: jms/TRAN/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Discard
+                            RedeliveryLimit: 0
+                    SIGTRIE_TOPIC:
+                        JNDIName: jms/TRIE/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+                    SIGUBIC_TOPIC:
+                        JNDIName: jms/UBIC/sig_TOPIC
+                        SubDeploymentName: SIGGCOM_subdeployment1
+        proxy_module:
+            Target: WJMSjmsCOCO
+            SubDeployment:
+                proxy_subdeployment:
+                    Target: PROXYCOCO_JMSServer1
+            JmsResource:
+                ConnectionFactory:
+                    proxy_CF:
+                        DefaultTargetingEnabled: true
+                        JNDIName: jms/proxy_CF
+                        TransactionParams:
+                            XAConnectionFactoryEnabled: true
+                Quota:
+                    QUOTA_CONT_ERROR:
+                        MessagesMaximum: 5000
+                    QUOTA_GDRE_ERROR:
+                        MessagesMaximum: 5000
+                        Shared: false
+                        BytesMaximum: 100000000
+                    Quota_PRCL:
+                        MessagesMaximum: 5000
+                        Shared: false
+                UniformDistributedQueue:
+                    Prueba:
+                        JNDIName: jms/COCO/proxy_prueba
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            RedeliveryLimit: 0
+                            ErrorDestination: Prueba_Error
+                        DeliveryParamsOverrides:
+                            RedeliveryDelay: 3000
+                    Prueba_Error:
+                        JNDIName: jms/COCO/proxy_prueba_error
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_BATCH_CONT:
+                        JNDIName: jms/COCO/proxy_BATCH_CONT
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            RedeliveryLimit: 0
+                            ErrorDestination: proxy_BATCH_CONT_ERROR
+                        DeliveryParamsOverrides:
+                            RedeliveryDelay: 3000
+                    proxy_BATCH_CONT_ERROR:
+                        JNDIName: jms/COCO/proxy_BATCH_CONT_ERROR
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_BATCH_PROV:
+                        JNDIName: jms/COCO/proxy_BATCH_PROV
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            RedeliveryLimit: 0
+                            ErrorDestination: proxy_BATCH_PROV_ERROR
+                        DeliveryParamsOverrides:
+                            RedeliveryDelay: 3000
+                    proxy_BATCH_PROV_ERROR:
+                        JNDIName: jms/COCO/proxy_BATCH_PROV_ERROR
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_CLOSE_PROV:
+                        JNDIName: jms/COCO/proxy_CLOSE_PROV
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            RedeliveryLimit: 0
+                            ErrorDestination: proxy_CLOSE_PROV_ERROR
+                        DeliveryParamsOverrides:
+                            RedeliveryDelay: 3000
+                    proxy_CLOSE_PROV_ERROR:
+                        JNDIName: jms/COCO/proxy_CLOSE_PROV_ERROR
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_CONT:
+                        JNDIName: jms/COCO/proxy_CONT
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            RedeliveryLimit: 0
+                            ErrorDestination: proxy_CONT_ERROR
+                        DeliveryParamsOverrides:
+                            RedeliveryDelay: 3000
+                        MessageLoggingParams:
+                            MessageLoggingFormat: '%properties%'
+                            MessageLoggingEnabled: true
+                    proxy_CONT_ERROR:
+                        JNDIName: jms/COCO/proxy_CONT_ERROR
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_CONT_SISIFO:
+                        JNDIName: jms/COCO/proxy_CONT_SISIFO
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            RedeliveryLimit: 0
+                            ErrorDestination: proxy_CONT_SISIFO_ERROR
+                        DeliveryParamsOverrides:
+                            RedeliveryDelay: 3000
+                    proxy_CONT_SISIFO_ERROR:
+                        JNDIName: jms/COCO/proxy_CONT_SISIFO_ERROR
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_CONT_SIT_CUSTOMERORDERITEMSTATUSCHANGE_V4_ERROR:
+                        JNDIName: jms/COCO/proxy_CONT_SIT_CUSTOMERORDERITEMSTATUSCHANGE_V4_ERROR
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_GDRE:
+                        JNDIName: jms/COCO/proxy_GDRE
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            RedeliveryLimit: 0
+                            ErrorDestination: proxy_GDRE_ERROR
+                        DeliveryParamsOverrides:
+                            RedeliveryDelay: 3000
+                    proxy_GDRE_ERROR:
+                        JNDIName: jms/COCO/proxy_GDRE_ERROR
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_GTIN:
+                        JNDIName: jms/COCO/proxy_GTIN
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            RedeliveryLimit: 0
+                            ErrorDestination: proxy_GTIN_ERROR
+                        DeliveryParamsOverrides:
+                            RedeliveryDelay: 3000
+                    proxy_GTIN_ERROR:
+                        JNDIName: jms/COCO/proxy_GTIN_ERROR
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_GTIN_GTIN:
+                        JNDIName: jms/COCO/proxy_GTIN_GTIN
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            RedeliveryLimit: 0
+                            ErrorDestination: proxy_GTIN_GTIN_ERROR
+                        DeliveryParamsOverrides:
+                            RedeliveryDelay: 3000
+                    proxy_GTIN_GTIN_ERROR:
+                        JNDIName: jms/COCO/proxy_GTIN_GTIN_ERROR
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_GTIN_GTIN_FUTR:
+                        JNDIName: jms/COCO/proxy_GTIN_GTIN_FUTR
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            RedeliveryLimit: 0
+                            ErrorDestination: proxy_GTIN_GTIN_FUTR_ERROR
+                        DeliveryParamsOverrides:
+                            RedeliveryDelay: 3000
+                    proxy_GTIN_GTIN_FUTR_ERROR:
+                        JNDIName: jms/COCO/proxy_GTIN_GTIN_FUTR_ERROR
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_GTIN_GTIN_GTER:
+                        JNDIName: jms/COCO/proxy_GTIN_GTIN_GTER
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            RedeliveryLimit: 0
+                            ErrorDestination: proxy_GTIN_GTIN_GTER_ERROR
+                        DeliveryParamsOverrides:
+                            RedeliveryDelay: 3000
+                    proxy_GTIN_GTIN_GTER_ERROR:
+                        JNDIName: jms/COCO/proxy_GTIN_GTIN_GTER_ERROR
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_GTIN_GTIN_MASSIVE:
+                        JNDIName: jms/COCO/proxy_GTIN_GTIN_MASSIVE
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            RedeliveryLimit: 0
+                            ErrorDestination: proxy_GTIN_GTIN_MASSIVE_ERROR
+                        DeliveryParamsOverrides:
+                            RedeliveryDelay: 3000
+                    proxy_GTIN_GTIN_MASSIVE_ERROR:
+                        JNDIName: jms/COCO/proxy_GTIN_GTIN_MASSIVE_ERROR
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_GTIN_GTIN_PROV:
+                        JNDIName: jms/COCO/proxy_GTIN_GTIN_PROV
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            RedeliveryLimit: 0
+                            ErrorDestination: proxy_GTIN_GTIN_PROV_ERROR
+                        DeliveryParamsOverrides:
+                            RedeliveryDelay: 3000
+                    proxy_GTIN_GTIN_PROV_ERROR:
+                        JNDIName: jms/COCO/proxy_GTIN_GTIN_PROV_ERROR
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_GTIN_GTIN_ROOT:
+                        JNDIName: jms/COCO/proxy_GTIN_GTIN_ROOT
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            RedeliveryLimit: 0
+                            ErrorDestination: proxy_GTIN_GTIN_ROOT_ERROR
+                        DeliveryParamsOverrides:
+                            RedeliveryDelay: 3000
+                    proxy_GTIN_GTIN_ROOT_ERROR:
+                        JNDIName: jms/COCO/proxy_GTIN_GTIN_ROOT_ERROR
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_PRCL:
+                        JNDIName: jms/COCO/proxy_PRCL
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            RedeliveryLimit: 2
+                            ErrorDestination: proxy_PRCL_ERROR
+                        DeliveryParamsOverrides:
+                            RedeliveryDelay: 60000
+                    proxy_PRCL_ERROR:
+                        JNDIName: jms/COCO/proxy_PRCL_ERROR
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_PROV:
+                        JNDIName: jms/COCO/proxy_PROV
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            RedeliveryLimit: 0
+                            ErrorDestination: proxy_PROV_ERROR
+                        DeliveryParamsOverrides:
+                            RedeliveryDelay: 3000
+                        MessageLoggingParams:
+                            MessageLoggingFormat: '%header%,%properties%'
+                            MessageLoggingEnabled: true
+                    proxy_PROV_CONT_NOTIFY_TM_OH:
+                        JNDIName: jms/COCO/proxy_PROV_CONT_NOTIFY_TM_OH
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            ErrorDestination: proxy_PROV_CONT_NOTIFY_TM_OH_ERROR
+                        DeliveryParamsOverrides:
+                            RedeliveryDelay: 3000
+                    proxy_PROV_CONT_NOTIFY_TM_OH_ERROR:
+                        JNDIName: jms/COCO/proxy_PROV_CONT_NOTIFY_TM_OH_ERROR
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_PROV_ERROR:
+                        JNDIName: jms/COCO/proxy_PROV_ERROR
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_PRSR:
+                        JNDIName: jms/COCO/proxy_PRSR
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            RedeliveryLimit: 0
+                            ErrorDestination: proxy_PRSR_ERROR
+                        DeliveryParamsOverrides:
+                            RedeliveryDelay: 3000
+                    proxy_PRSR_ERROR:
+                        JNDIName: jms/COCO/proxy_PRSR_ERROR
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_PRUE_PROV:
+                        JNDIName: jms/COCO/proxy_PRUE_PROV
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            RedeliveryLimit: 0
+                            ErrorDestination: proxy_PRUE_PROV_ERROR
+                        DeliveryParamsOverrides:
+                            RedeliveryDelay: 3000
+                    proxy_PRUE_PROV_ERROR:
+                        JNDIName: jms/COCO/proxy_PRUE_PROV_ERROR
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_QUEUE1:
+                        JNDIName: jms/COCO/proxy_QUEUE1
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            RedeliveryLimit: 0
+                            ErrorDestination: proxy_QUEUE1_ERROR
+                        DeliveryParamsOverrides:
+                            TimeToLive: 900000
+                        MessageLoggingParams:
+                            MessageLoggingFormat: '%header%,%properties%'
+                            MessageLoggingEnabled: true
+                    proxy_QUEUE1_ERROR:
+                        JNDIName: jms/COCO/proxy_QUEUE1_ERROR
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryParamsOverrides:
+                            TimeToLive: 900000
+                    proxy_SIPR:
+                        JNDIName: jms/COCO/proxy_SIPR
+                        SubDeploymentName: proxy_subdeployment
+                        DeliveryFailureParams:
+                            ExpirationPolicy: Redirect
+                            RedeliveryLimit: 0
+                            ErrorDestination: proxy_SIPR_ERROR
+                        DeliveryParamsOverrides:
+                            RedeliveryDelay: 3000
+                    proxy_SIPR_ERROR:
+                        JNDIName: jms/COCO/proxy_SIPR_ERROR
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_TEST1:
+                        JNDIName: jms/COCO/proxy_TEST1
+                        SubDeploymentName: proxy_subdeployment
+                    proxy_TEST2:
+                        JNDIName: jms/COCO/proxy_TEST2
+                        SubDeploymentName: proxy_subdeployment
+appDeployments:
+    Application:
+        srv-nuc-jee-TelcoProxy:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-TelcoProxy.war
+            ModuleType: war
+            Target: WJMSjmsCOCO

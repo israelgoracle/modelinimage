@@ -1,0 +1,140 @@
+# ServersTransport para ignorar certificados SSL autofirmados
+apiVersion: traefik.io/v1alpha1
+kind: ServersTransport
+metadata:
+  name: insecure-transport
+  namespace: cohi-ns
+spec:
+  insecureSkipVerify: true
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cohi-admin-clusterip
+  namespace: cohi-ns
+spec:
+  type: ClusterIP
+  selector:
+    weblogic.createdByOperator: "true"
+    weblogic.domainUID: cohi
+    weblogic.serverName: COHIwladmin0
+  ports:
+  - name: admin-https
+    port: 9002
+    targetPort: 9002
+    protocol: TCP
+---
+# IngressRoute para consola de administración (9002)
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: cohi-admin-console
+  namespace: cohi-ns
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`admin.cohi.telco.es`)
+      kind: Rule
+      services:
+        - name: cohi-admin-clusterip 
+          port: 9002
+          scheme: https
+          serversTransport: insecure-transport
+  tls: {}
+---
+# IngressRoute para aplicaciones web COHIcohTEST 36000
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: cohi-apps-web
+  namespace: cohi-ns
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`apps.cohi.telco.es`)
+      kind: Rule
+      services:
+        - name: cohi-cluster-cohicohtest
+          port: 36000
+          scheme: http
+          serversTransport: insecure-transport
+  tls: {}
+---
+# Service ClusterIP para Coherence Extend Proxies (uso interno K8s)
+apiVersion: v1
+kind: Service
+metadata:
+  name: cohi-proxy-extend
+  namespace: cohi-ns
+  labels:
+    weblogic.domainUID: cohi
+    app: coherence-proxy
+spec:
+  selector:
+    weblogic.createdByOperator: "true"
+    weblogic.domainUID: cohi
+    weblogic.clusterName: COHIcohPRXY
+  ports:
+  - name: extend-infra
+    port: 36102
+    targetPort: 36102
+    protocol: TCP
+  - name: extend-servicio
+    port: 36112
+    targetPort: 36112
+    protocol: TCP
+  - name: extend-var
+    port: 36122
+    targetPort: 36122
+    protocol: TCP
+  - name: extend-drot
+    port: 36132
+    targetPort: 36132
+    protocol: TCP
+  - name: extend-servicio-cata
+    port: 36142
+    targetPort: 36142
+    protocol: TCP
+  type: ClusterIP
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+---
+# LoadBalancer TCP INTERNO para clientes Coherence*Extend externos a K8s
+apiVersion: v1
+kind: Service
+metadata:
+  name: cohi-coherence-extend-lb
+  namespace: cohi-ns
+  annotations:
+    service.beta.kubernetes.io/oci-load-balancer-internal: "true"
+spec:
+  type: LoadBalancer
+  selector:
+    weblogic.createdByOperator: "true"
+    weblogic.domainUID: cohi
+    weblogic.clusterName: COHIcohPRXY
+  ports:
+    - name: infra
+      port: 36102
+      targetPort: 36102
+      protocol: TCP
+    - name: servicio
+      port: 36112
+      targetPort: 36112
+      protocol: TCP
+    - name: var
+      port: 36122
+      targetPort: 36122
+      protocol: TCP
+    - name: drot
+      port: 36132
+      targetPort: 36132
+      protocol: TCP
+    - name: servicio-cata
+      port: 36142
+      targetPort: 36142
+      protocol: TCP

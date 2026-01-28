@@ -1,0 +1,16 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: holamundo-wcv2-https
+  namespace: wcv2-ns
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`apps.wcv2.telco.es`) && PathPrefix(`/holamundo`)
+      kind: Rule
+      services:
+        - name: wcv2-cluster-wcv2wlncov3
+          port: 38700
+  tls:
+    secretName: wcv2-tls-cert

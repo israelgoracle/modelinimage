@@ -1,0 +1,408 @@
+domainInfo:
+    AdminUserName: '@@SECRET:__weblogic-credentials__:username@@'
+    AdminPassword: '@@SECRET:__weblogic-credentials__:password@@'
+topology:
+    Name: WCV2
+    AdminServerName: wcv2wladmin0
+    ProductionModeEnabled: true
+    DomainVersion: 14.1.1.0.0
+    JTA:
+        MaxResourceUnavailableMillis: 600000
+        MaxXACallMillis: 180000
+    Log:
+        FileMinSize: 5000
+        RotateLogOnStartup: false
+        DomainLogBroadcasterBufferSize: 10
+        RotationType: byTime
+        MemoryBufferSize: 500
+    Cluster:
+        WCV2wlnCOV3:
+            ClusterAddress: '@@PROP:Cluster.WCV2wlnCOV3.ClusterAddress@@'
+            JTACluster:
+                MaxResourceUnavailableMillis: 600000
+                MaxXACallMillis: 180000
+        WCV2wlnCOV4:
+            ClusterAddress: '@@PROP:Cluster.WCV2wlnCOV4.ClusterAddress@@'
+            JTACluster:
+                MaxResourceUnavailableMillis: 600000
+                MaxXACallMillis: 180000
+    Server:
+        wcv2wladmin0:
+            GracefulShutdownTimeout: 60
+            MaxMessageSize: 100000000
+            ServerLifeCycleTimeoutVal: 120
+            AdministrationPort: '@@PROP:Server.wcv2wladmin0.AdministrationPort@@'
+            StuckThreadTimerInterval: 20
+            StagingMode: nostage
+            ClasspathServletSecureModeEnabled: true
+            MaxOpenSockCount: 2000
+            ListenPort: '@@PROP:Server.wcv2wladmin0.ListenPort@@'
+            DataSource:
+                DataSourceLogFile:
+                    FileCount: 100
+                    FileMinSize: 5000
+                    RotateLogOnStartup: false
+            Log:
+                DomainLogBroadcastSeverity: Warning
+                LogFileSeverity: Warning
+                FileMinSize: 5000
+                StdoutSeverity: Warning
+                DomainLogBroadcasterBufferSize: 10
+                RotationType: bySize
+                RedirectStdoutToServerLogEnabled: true
+                RedirectStderrToServerLogEnabled: true
+                MemoryBufferSize: 500
+                FileCount: 10
+                RotateLogOnStartup: true
+                LoggerSeverity: Warning
+            ServerDiagnosticConfig:
+                WldfDiagnosticVolume: 'Off'
+            SingleSignOnServices:
+                WantAssertionsSigned: true
+            WebServer:
+                MaxPostSize: 100000000
+                PostTimeoutSecs: 20
+                HttpsKeepAliveSecs: 30
+                KeepAliveSecs: 15
+                WebServerLog:
+                    RotationType: byTime
+                    LogFileFormat: extended
+                    FileMinSize: 5000
+                    ELFFields: c-ip date time cs-method cs-uri sc-status bytes time-taken
+                        ctx-ecid
+                    RotateLogOnStartup: false
+            WebService:
+                WebServiceReliability:
+                    NonBufferedDestination: false
+        wcv2wlncov301:
+            GracefulShutdownTimeout: 60
+            MaxMessageSize: 100000000
+            ListenAddress: '@@PROP:Server.wcv2wlncov301.ListenAddress@@'
+            ServerLifeCycleTimeoutVal: 120
+            AdministrationPort: '@@PROP:Server.wcv2wlncov301.AdministrationPort@@'
+            StuckThreadTimerInterval: 20
+            StagingMode: nostage
+            ClasspathServletSecureModeEnabled: true
+            MaxOpenSockCount: 2000
+            ListenPort: '@@PROP:Server.wcv2wlncov301.ListenPort@@'
+            Cluster: WCV2wlnCOV3
+            DataSource:
+                DataSourceLogFile:
+                    FileCount: 100
+                    FileMinSize: 5000
+                    RotateLogOnStartup: false
+            JTAMigratableTarget:
+                UserPreferredServer: wcv2wlncov301
+                Cluster: WCV2wlnCOV3
+            Log:
+                DomainLogBroadcastSeverity: 'Off'
+                LogFileSeverity: Info
+                FileMinSize: 5000
+                StdoutSeverity: 'Off'
+                DomainLogBroadcasterBufferSize: 10
+                RotationType: bySize
+                RedirectStdoutToServerLogEnabled: true
+                RedirectStderrToServerLogEnabled: true
+                MemoryBufferSize: 500
+                FileCount: 10
+                RotateLogOnStartup: true
+            ServerDiagnosticConfig:
+                WldfDiagnosticVolume: 'Off'
+            SingleSignOnServices:
+                WantAssertionsSigned: true
+            WebServer:
+                MaxPostSize: 100000000
+                PostTimeoutSecs: 20
+                HttpsKeepAliveSecs: 30
+                KeepAliveSecs: 15
+                WebServerLog:
+                    RotationType: byTime
+                    LogFileFormat: extended
+                    FileMinSize: 5000
+                    ELFFields: c-ip date time cs-method cs-uri sc-status bytes time-taken
+                        ctx-ecid x-CocoIdGeneral x-CocoIdProceso x-CocoIdMensaje x-CocoIdUsuario
+                        x-CocoOperacion x-CocoIdOrigen cs(SEGU.provenience)
+                    RotateLogOnStartup: false
+            WebService:
+                WebServiceReliability:
+                    NonBufferedDestination: false
+        wcv2wlncov401:
+            GracefulShutdownTimeout: 60
+            MaxMessageSize: 100000000
+            ListenAddress: '@@PROP:Server.wcv2wlncov401.ListenAddress@@'
+            ServerLifeCycleTimeoutVal: 120
+            AdministrationPort: '@@PROP:Server.wcv2wlncov401.AdministrationPort@@'
+            StuckThreadTimerInterval: 20
+            StagingMode: nostage
+            ClasspathServletSecureModeEnabled: true
+            MaxOpenSockCount: 2000
+            ListenPort: '@@PROP:Server.wcv2wlncov401.ListenPort@@'
+            Cluster: WCV2wlnCOV4
+            DataSource:
+                DataSourceLogFile:
+                    FileCount: 100
+                    FileMinSize: 5000
+                    RotateLogOnStartup: false
+            JTAMigratableTarget:
+                UserPreferredServer: wcv2wlncov401
+                Cluster: WCV2wlnCOV4
+            Log:
+                DomainLogBroadcastSeverity: Warning
+                LogFileSeverity: Warning
+                FileMinSize: 5000
+                StdoutSeverity: Warning
+                DomainLogBroadcasterBufferSize: 10
+                RotationType: bySize
+                MemoryBufferSeverity: Debug
+                RedirectStdoutToServerLogEnabled: true
+                RedirectStderrToServerLogEnabled: true
+                MemoryBufferSize: 500
+                FileCount: 10
+                RotateLogOnStartup: true
+                LoggerSeverity: Warning
+            ServerDiagnosticConfig:
+                WldfDiagnosticVolume: 'Off'
+            SingleSignOnServices:
+                WantAssertionsSigned: true
+            WebServer:
+                MaxPostSize: 100000000
+                PostTimeoutSecs: 20
+                HttpsKeepAliveSecs: 30
+                KeepAliveSecs: 15
+                WebServerLog:
+                    RotationType: byTime
+                    LogFileFormat: extended
+                    FileMinSize: 5000
+                    ELFFields: c-ip date time cs-method cs-uri sc-status bytes time-taken
+                        ctx-ecid x-CocoIdGeneral x-CocoIdProceso x-CocoIdMensaje x-CocoIdUsuario
+                        x-CocoOperacion x-CocoIdOrigen cs(SEGU.provenience)
+                    RotateLogOnStartup: false
+            WebService:
+                WebServiceReliability:
+                    NonBufferedDestination: false
+    MigratableTarget:
+        wcv2wlncov301 (migratable):
+            Notes: This is a system generated default migratable target for a server.
+                Do not delete manually.
+            UserPreferredServer: wcv2wlncov301
+            Cluster: WCV2wlnCOV3
+        wcv2wlncov401 (migratable):
+            Notes: This is a system generated default migratable target for a server.
+                Do not delete manually.
+            UserPreferredServer: wcv2wlncov401
+            Cluster: WCV2wlnCOV4
+    AdministrationPortEnabled: true
+resources:
+    SelfTuning:
+        Capacity:
+            Cap30:
+                Count: 30
+                Target: WCV2wlnCOV3,WCV2wlnCOV4
+            Cap_CONT:
+                Count: 30
+                Target: WCV2wlnCOV3
+            Cap_GCLI:
+                Count: 30
+                Target: WCV2wlnCOV4
+        MaxThreadsConstraint:
+            Max30Threads:
+                Count: 80
+                Target: WCV2wlnCOV3,WCV2wlnCOV4
+            MaxThreads_CONT:
+                Count: 30
+                Target: WCV2wlnCOV3
+            MaxThreads_GCLI:
+                Count: 30
+                Target: WCV2wlnCOV4
+        MinThreadsConstraint:
+            MinThreads_CONT:
+                Count: 1
+                Target: WCV2wlnCOV3
+            MinThreads_GCLI:
+                Count: 1
+                Target: WCV2wlnCOV4
+        WorkManager:
+            WM_CONT:
+                MinThreadsConstraint: MinThreads_CONT
+                MaxThreadsConstraint: MaxThreads_CONT
+                Target: WCV2wlnCOV3
+                Capacity: Cap_CONT
+            WM_GCLI:
+                MinThreadsConstraint: MinThreads_GCLI
+                MaxThreadsConstraint: MaxThreads_GCLI
+                Target: WCV2wlnCOV4
+                Capacity: Cap_GCLI
+    WebAppContainer:
+        ServletReloadCheckSecs: -1
+    JDBCSystemResource:
+        UOD_CLIENT1_DS_XA:
+            Target: WCV2wlnCOV4
+            JdbcResource:
+                DatasourceType: GENERIC
+                JDBCConnectionPoolParams:
+                    InactiveConnectionTimeoutSeconds: 1200
+                    TestConnectionsOnReserve: true
+                    TestTableName: SQL SELECT 1 FROM DUAL
+                    MaxCapacity: '@@PROP:JDBC.UOD_CLIENT1_DS_XA.MAXCAPACITY@@'
+                JDBCDataSourceParams:
+                    JNDIName: jdbc/GCLI/UOD_CLIENT1_DS_XA
+                JDBCDriverParams:
+                    DriverName: oracle.jdbc.xa.client.OracleXADataSource
+                    PasswordEncrypted: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-client1-ds-xa:password@@'
+                    URL: '@@PROP:JDBC.UOD_CLIENT1_DS_XA.URL@@'
+                    Properties:
+                        user:
+                            Value: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-client1-ds-xa:username@@'
+        UOD_COCOTE1_DS_XA:
+            Target: WCV2wlnCOV3,WCV2wlnCOV4
+            JdbcResource:
+                DatasourceType: GENERIC
+                JDBCConnectionPoolParams:
+                    InactiveConnectionTimeoutSeconds: 1200
+                    TestConnectionsOnReserve: true
+                    MaxCapacity: 30
+                    TestTableName: SQL SELECT 1 FROM DUAL
+                JDBCDataSourceParams:
+                    JNDIName: jdbc/COCO/UOD_COCOTE1_DS_XA
+                JDBCDriverParams:
+                    DriverName: oracle.jdbc.xa.client.OracleXADataSource
+                    PasswordEncrypted: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-cocote1-ds-xa:password@@'
+                    URL: '@@PROP:JDBC.UOD_COCOTE1_DS_XA.URL@@'
+                    Properties:
+                        user:
+                            Value: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-cocote1-ds-xa:username@@'
+        UOD_REGLAS1_DS_XA:
+            Target: WCV2wlnCOV3,WCV2wlnCOV4
+            JdbcResource:
+                DatasourceType: GENERIC
+                JDBCConnectionPoolParams:
+                    InactiveConnectionTimeoutSeconds: 1200
+                    TestConnectionsOnReserve: true
+                    MaxCapacity: 30
+                    TestTableName: SQL SELECT 1 FROM DUAL
+                JDBCDataSourceParams:
+                    JNDIName: jdbc/GERE/UOD_REGLAS1_DS_XA
+                JDBCDriverParams:
+                    DriverName: oracle.jdbc.xa.client.OracleXADataSource
+                    PasswordEncrypted: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-reglas1-ds-xa:password@@'
+                    URL: '@@PROP:JDBC.UOD_REGLAS1_DS_XA.URL@@'
+                    Properties:
+                        user:
+                            Value: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-reglas1-ds-xa:username@@'
+        UOD_VENTAS1_DS_XA:
+            Target: WCV2wlnCOV3
+            JdbcResource:
+                DatasourceType: GENERIC
+                JDBCConnectionPoolParams:
+                    InactiveConnectionTimeoutSeconds: 1200
+                    TestConnectionsOnReserve: true
+                    MaxCapacity: 30
+                    TestTableName: SQL SELECT 1 FROM DUAL
+                JDBCDataSourceParams:
+                    JNDIName: jdbc/CONT/UOD_VENTAS1_DS_XA
+                JDBCDriverParams:
+                    DriverName: oracle.jdbc.xa.client.OracleXADataSource
+                    PasswordEncrypted: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-ventas1-ds-xa:password@@'
+                    URL: '@@PROP:JDBC.UOD_VENTAS1_DS_XA.URL@@'
+                    Properties:
+                        user:
+                            Value: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-ventas1-ds-xa:username@@'
+appDeployments:
+    Library:
+        shrd-tapv3#3.1.8@3.1.8.3:
+            SourcePath: wlsdeploy/sharedLibraries/shrd-tapv3.war
+            ModuleType: war
+            Target: WCV2wlnCOV3,WCV2wlnCOV4
+        shrd-tapv3#4.0@3.1.10-1:
+            SourcePath: wlsdeploy/sharedLibraries/shrd-tapv3-v4.war
+            ModuleType: war
+            Target: WCV2wlnCOV3,WCV2wlnCOV4
+    Application:
+        srv-nuc-jee-BusinessInteractionItemSel-facade:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-BusinessInteractionItemSel-facade.war
+            ModuleType: war
+            Target: []
+        srv-nuc-jee-BusinessInteractionSel-facade:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-BusinessInteractionSel-facade.war
+            ModuleType: war
+            Target: []
+        srv-nuc-jee-CustomerOrderItemSel-facade:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-CustomerOrderItemSel-facade.war
+            ModuleType: war
+            Target: []
+        srv-nuc-jee-CustomerQuoteItemSel-facade-v5:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-CustomerQuoteItemSel-facade-v5.war
+            ModuleType: war
+            Target: []
+        srv-nuc-jee-CustomerQuoteSel-facade-v5:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-CustomerQuoteSel-facade-v5.war
+            ModuleType: war
+            Target: []
+        srv-nuc-jee-GenericGroupsSel-facade:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-GenericGroupsSel-facade.war
+            ModuleType: war
+            Target: WCV2wlnCOV3
+        srv-nuc-jee-PartyRole-facade:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-PartyRole-facade.war
+            ModuleType: war
+            Target: WCV2wlnCOV4
+        srv-nuc-jee-PartyRoleRelationship-facade:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-PartyRoleRelationship-facade.war
+            ModuleType: war
+            Target: WCV2wlnCOV4
+        srv-nuc-jee-ProductSel-facade:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-ProductSel-facade.war
+            ModuleType: war
+            Target: WCV2wlnCOV3
+        srv-nuc-jee-ReadCustomerQuoteCOLSel-facade-v7:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-ReadCustomerQuoteCOLSel-facade-v7.war
+            ModuleType: war
+            Target: WCV2wlnCOV3
+        srv-nuc-jee-ReadCustomerQuoteSel-facade-v8:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-ReadCustomerQuoteSel-facade-v8.war
+            ModuleType: war
+            Target: WCV2wlnCOV3
+        srv-nuc-jee-ReadCustomerQuoteSel-facade-v9:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-ReadCustomerQuoteSel-facade-v9.war
+            ModuleType: war
+            Target: WCV2wlnCOV3
+        srv-nuc-jee-TrackAndManageCMO-facade-v4:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-TrackAndManageCMO-facade-v4.war
+            ModuleType: war
+            Target: WCV2wlnCOV4
+        srv-nuc-jee-User-facade-v4:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-User-facade-v4.war
+            ModuleType: war
+            Target: WCV2wlnCOV4
+        srv-nuc-jee-WriteCustomerQuoteCOLSel-facade-v6:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-WriteCustomerQuoteCOLSel-facade-v6.war
+            ModuleType: war
+            Target: WCV2wlnCOV3
+        srv-nuc-jee-WriteCustomerQuoteCOLSel-facade-v7:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-WriteCustomerQuoteCOLSel-facade-v7.war
+            ModuleType: war
+            Target: WCV2wlnCOV3
+        srv-nuc-jee-WriteCustomerQuoteItemCOLSel-facade:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-WriteCustomerQuoteItemCOLSel-facade.war
+            ModuleType: war
+            Target: WCV2wlnCOV3
+        srv-nuc-jee-WriteCustomerQuoteItemSel-facade-v4:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-WriteCustomerQuoteItemSel-facade-v4.war
+            ModuleType: war
+            Target: WCV2wlnCOV3
+        srv-nuc-jee-WriteCustomerQuoteSel-facade-v4:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-WriteCustomerQuoteSel-facade-v4.war
+            ModuleType: war
+            Target: WCV2wlnCOV3
+        srv-nuc-jee-WriteProductCOLSel-facade-v4:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-WriteProductCOLSel-facade-v4.war
+            ModuleType: war
+            Target: WCV2wlnCOV3
+        srv-nuc-jee-WriteProductCOLSel-facade-v5:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-WriteProductCOLSel-facade-v5.war
+            ModuleType: war
+            Target: WCV2wlnCOV3
+        srv-nuc-jee-WriteProductSel-facade:
+            SourcePath: wlsdeploy/applications/srv-nuc-jee-WriteProductSel-facade.war
+            ModuleType: war
+            Target: WCV2wlnCOV3

@@ -1,0 +1,851 @@
+domainInfo:
+    AdminUserName: '@@SECRET:__weblogic-credentials__:username@@'
+    AdminPassword: '@@SECRET:__weblogic-credentials__:password@@'
+topology:
+    Name: COHI
+    AdminServerName: COHIwladmin0
+    ExalogicOptimizationsEnabled: true
+    DomainVersion: 14.1.1.0.0
+    ProductionModeEnabled: true
+    JMX:
+        ManagedServerNotificationsEnabled: false
+    JTA:
+        MaxXACallMillis: 180000
+        MaxResourceUnavailableMillis: 600000
+    Log:
+        MemoryBufferSize: 500
+        RotateLogOnStartup: false
+        RotationType: byTime
+        FileMinSize: 5000
+        DomainLogBroadcasterBufferSize: 10
+        FileName: logs/COHI.log
+    Cluster:
+        COHIcohCCHE:
+            HealthCheckPeriodsUntilFencing: 6
+            ClusterAddress: '@@PROP:Cluster.COHIcohCCHE.ClusterAddress@@'
+            SessionLazyDeserializationEnabled: true
+            CoherenceClusterSystemResource: COHI_Coherence
+            JTACluster:
+                MaxXACallMillis: 180000
+                MaxResourceUnavailableMillis: 600000
+        COHIcohPRXY:
+            HealthCheckPeriodsUntilFencing: 6
+            ClusterAddress: '@@PROP:Cluster.COHIcohPRXY.ClusterAddress@@'
+            SessionLazyDeserializationEnabled: true
+            CoherenceClusterSystemResource: COHI_Coherence
+            CoherenceTier:
+                LocalStorageEnabled: false
+            JTACluster:
+                MaxXACallMillis: 180000
+                MaxResourceUnavailableMillis: 600000
+        COHIcohTEST:
+            HealthCheckPeriodsUntilFencing: 6
+            ClusterAddress: '@@PROP:Cluster.COHIcohTEST.ClusterAddress@@'
+            SessionLazyDeserializationEnabled: true
+            CoherenceClusterSystemResource: COHI_Coherence
+            CoherenceTier:
+                LocalStorageEnabled: false
+            JTACluster:
+                MaxXACallMillis: 180000
+                MaxResourceUnavailableMillis: 600000
+    Server:
+        COHIcohCCHE01:
+            ServerLifeCycleTimeoutVal: 120
+            ListenPort: '@@PROP:Server.COHIcohCCHE01.ListenPort@@'
+            GracefulShutdownTimeout: 60
+            AddWorkManagerThreadsByCpuCount: true
+            StagingMode: nostage
+            StuckThreadMaxTime: 60
+            MuxerClass: weblogic.socket.NIOSharedWorkSocketMuxer
+            AdministrationPort: '@@PROP:Server.COHIcohCCHE01.AdministrationPort@@'
+            StuckThreadTimerInterval: 20
+            MaxMessageSize: 100000000
+            ScatteredReadsEnabled: true
+            MaxOpenSockCount: 2000
+            MSIFileReplicationEnabled: true
+            StagingDirectoryName: '@@DOMAIN_HOME@@/tmp/servers/COHIcohCCHE01/stage'
+            ClasspathServletSecureModeEnabled: true
+            UseConcurrentQueueForRequestManager: true
+            GatheredWritesEnabled: true
+            ListenAddress: '@@PROP:Server.COHIcohCCHE01.ListenAddress@@'
+            Cluster: COHIcohCCHE
+            DataSource:
+                DataSourceLogFile:
+                    FileMinSize: 5000
+                    FileCount: 100
+                    RotateLogOnStartup: false
+            JTAMigratableTarget:
+                Cluster: COHIcohCCHE
+                UserPreferredServer: COHIcohCCHE01
+            Log:
+                MemoryBufferSize: 500
+                DateFormatPattern: MMM d, yyyy h:mm:ss a z
+                DomainLogBroadcastSeverity: 'Off'
+                RotationType: bySize
+                StdoutSeverity: 'Off'
+                PlatformLoggerLevels:
+                    com.oracle.coherence: FINEST
+                FileMinSize: 5000
+                RedirectStderrToServerLogEnabled: true
+                LoggerSeverity: Trace
+                DomainLogBroadcasterBufferSize: 10
+                RedirectStdoutToServerLogEnabled: true
+                FileCount: 10
+                RotateLogOnStartup: true
+            ServerDebug:
+                DebugScope:
+                    weblogic.jdbc: {}
+            ServerDiagnosticConfig:
+                WldfDiagnosticVolume: 'Off'
+            SingleSignOnServices:
+                WantAssertionsSigned: true
+            WebServer:
+                KeepAliveSecs: 15
+                PostTimeoutSecs: 20
+                MaxPostSize: 100000000
+                HttpsKeepAliveSecs: 30
+                WebServerLog:
+                    RotateLogOnStartup: false
+                    LogFileFormat: extended
+                    RotationType: byTime
+                    ELFFields: c-ip date time cs-method cs-uri sc-status bytes time-taken
+                        ctx-ecid
+                    FileMinSize: 5000
+            WebService:
+                WebServiceReliability:
+                    NonBufferedSource: true
+            CoherenceMemberConfig:
+                UnicastListenAddress: '@@PROP:Server.COHIcohCCHE01.ListenAddress@@'
+            CoherenceClusterSystemResource: COHI_Coherence
+        COHIcohCCHE02:
+            ServerLifeCycleTimeoutVal: 120
+            ListenPort: '@@PROP:Server.COHIcohCCHE02.ListenPort@@'
+            GracefulShutdownTimeout: 60
+            AddWorkManagerThreadsByCpuCount: true
+            StagingMode: nostage
+            StuckThreadMaxTime: 60
+            MuxerClass: weblogic.socket.NIOSharedWorkSocketMuxer
+            AdministrationPort: '@@PROP:Server.COHIcohCCHE02.AdministrationPort@@'
+            StuckThreadTimerInterval: 20
+            MaxMessageSize: 100000000
+            ScatteredReadsEnabled: true
+            MaxOpenSockCount: 2000
+            MSIFileReplicationEnabled: true
+            StagingDirectoryName: '@@DOMAIN_HOME@@/tmp/servers/COHIcohCCHE02/stage'
+            ClasspathServletSecureModeEnabled: true
+            UseConcurrentQueueForRequestManager: true
+            GatheredWritesEnabled: true
+            ListenAddress: '@@PROP:Server.COHIcohCCHE02.ListenAddress@@'
+            Cluster: COHIcohCCHE
+            DataSource:
+                DataSourceLogFile:
+                    FileMinSize: 5000
+                    FileCount: 100
+                    RotateLogOnStartup: false
+            JTAMigratableTarget:
+                Cluster: COHIcohCCHE
+                UserPreferredServer: COHIcohCCHE02
+            Log:
+                MemoryBufferSize: 500
+                DomainLogBroadcastSeverity: 'Off'
+                RotationType: bySize
+                StdoutSeverity: 'Off'
+                PlatformLoggerLevels:
+                    com.oracle.coherence: FINEST
+                FileMinSize: 5000
+                RedirectStderrToServerLogEnabled: true
+                LoggerSeverity: Trace
+                DomainLogBroadcasterBufferSize: 10
+                RedirectStdoutToServerLogEnabled: true
+                FileCount: 10
+                RotateLogOnStartup: true
+            ServerDebug:
+                DebugScope:
+                    weblogic.jdbc: {}
+            ServerDiagnosticConfig:
+                WldfDiagnosticVolume: 'Off'
+            SingleSignOnServices:
+                WantAssertionsSigned: true
+            WebServer:
+                KeepAliveSecs: 15
+                PostTimeoutSecs: 20
+                MaxPostSize: 100000000
+                HttpsKeepAliveSecs: 30
+                WebServerLog:
+                    RotateLogOnStartup: false
+                    LogFileFormat: extended
+                    RotationType: byTime
+                    ELFFields: c-ip date time cs-method cs-uri sc-status bytes time-taken
+                        ctx-ecid
+                    FileMinSize: 5000
+            WebService:
+                WebServiceReliability:
+                    NonBufferedSource: true
+            CoherenceMemberConfig:
+                UnicastListenAddress: '@@PROP:Server.COHIcohCCHE02.ListenAddress@@'
+            CoherenceClusterSystemResource: COHI_Coherence
+        COHIcohCCHE03:
+            ServerLifeCycleTimeoutVal: 120
+            ListenPort: '@@PROP:Server.COHIcohCCHE03.ListenPort@@'
+            GracefulShutdownTimeout: 60
+            AddWorkManagerThreadsByCpuCount: true
+            StagingMode: nostage
+            StuckThreadMaxTime: 60
+            MuxerClass: weblogic.socket.NIOSharedWorkSocketMuxer
+            AdministrationPort: '@@PROP:Server.COHIcohCCHE03.AdministrationPort@@'
+            StuckThreadTimerInterval: 20
+            MaxMessageSize: 100000000
+            ScatteredReadsEnabled: true
+            MaxOpenSockCount: 2000
+            MSIFileReplicationEnabled: true
+            StagingDirectoryName: '@@DOMAIN_HOME@@/tmp/servers/COHIcohCCHE03/stage'
+            ClasspathServletSecureModeEnabled: true
+            UseConcurrentQueueForRequestManager: true
+            GatheredWritesEnabled: true
+            ListenAddress: '@@PROP:Server.COHIcohCCHE03.ListenAddress@@'
+            Cluster: COHIcohCCHE
+            DataSource:
+                DataSourceLogFile:
+                    FileMinSize: 5000
+                    FileCount: 100
+                    RotateLogOnStartup: false
+            JTAMigratableTarget:
+                Cluster: COHIcohCCHE
+                UserPreferredServer: COHIcohCCHE03
+            Log:
+                MemoryBufferSize: 500
+                DomainLogBroadcastSeverity: 'Off'
+                RotationType: bySize
+                StdoutSeverity: 'Off'
+                PlatformLoggerLevels:
+                    com.oracle.coherence: FINEST
+                FileMinSize: 5000
+                RedirectStderrToServerLogEnabled: true
+                LoggerSeverity: Trace
+                DomainLogBroadcasterBufferSize: 10
+                RedirectStdoutToServerLogEnabled: true
+                FileCount: 10
+                RotateLogOnStartup: true
+            ServerDebug:
+                DebugScope:
+                    weblogic.jdbc: {}
+            ServerDiagnosticConfig:
+                WldfDiagnosticVolume: 'Off'
+            SingleSignOnServices:
+                WantAssertionsSigned: true
+            WebServer:
+                KeepAliveSecs: 15
+                PostTimeoutSecs: 20
+                MaxPostSize: 100000000
+                HttpsKeepAliveSecs: 30
+                WebServerLog:
+                    RotateLogOnStartup: false
+                    LogFileFormat: extended
+                    RotationType: byTime
+                    ELFFields: c-ip date time cs-method cs-uri sc-status bytes time-taken
+                        ctx-ecid
+                    FileMinSize: 5000
+            WebService:
+                WebServiceReliability:
+                    NonBufferedSource: true
+            CoherenceMemberConfig:
+                UnicastListenAddress: '@@PROP:Server.COHIcohCCHE03.ListenAddress@@'
+            CoherenceClusterSystemResource: COHI_Coherence
+        COHIcohCCHE04:
+            ServerLifeCycleTimeoutVal: 120
+            ListenPort: '@@PROP:Server.COHIcohCCHE04.ListenPort@@'
+            GracefulShutdownTimeout: 60
+            AddWorkManagerThreadsByCpuCount: true
+            StagingMode: nostage
+            StuckThreadMaxTime: 60
+            MuxerClass: weblogic.socket.NIOSharedWorkSocketMuxer
+            AdministrationPort: '@@PROP:Server.COHIcohCCHE04.AdministrationPort@@'
+            StuckThreadTimerInterval: 20
+            MaxMessageSize: 100000000
+            ScatteredReadsEnabled: true
+            MaxOpenSockCount: 2000
+            MSIFileReplicationEnabled: true
+            StagingDirectoryName: '@@DOMAIN_HOME@@/tmp/servers/COHIcohCCHE04/stage'
+            ClasspathServletSecureModeEnabled: true
+            UseConcurrentQueueForRequestManager: true
+            GatheredWritesEnabled: true
+            ListenAddress: '@@PROP:Server.COHIcohCCHE04.ListenAddress@@'
+            Cluster: COHIcohCCHE
+            DataSource:
+                DataSourceLogFile:
+                    FileMinSize: 5000
+                    FileCount: 100
+                    RotateLogOnStartup: false
+            JTAMigratableTarget:
+                Cluster: COHIcohCCHE
+                UserPreferredServer: COHIcohCCHE04
+            Log:
+                MemoryBufferSize: 500
+                DomainLogBroadcastSeverity: 'Off'
+                RotationType: bySize
+                StdoutSeverity: 'Off'
+                PlatformLoggerLevels:
+                    com.oracle.coherence: FINEST
+                FileMinSize: 5000
+                RedirectStderrToServerLogEnabled: true
+                LoggerSeverity: Trace
+                DomainLogBroadcasterBufferSize: 10
+                RedirectStdoutToServerLogEnabled: true
+                FileCount: 10
+                RotateLogOnStartup: true
+            ServerDebug:
+                DebugScope:
+                    weblogic.jdbc: {}
+            ServerDiagnosticConfig:
+                WldfDiagnosticVolume: 'Off'
+            SingleSignOnServices:
+                WantAssertionsSigned: true
+            WebServer:
+                KeepAliveSecs: 15
+                PostTimeoutSecs: 20
+                MaxPostSize: 100000000
+                HttpsKeepAliveSecs: 30
+                WebServerLog:
+                    RotateLogOnStartup: false
+                    LogFileFormat: extended
+                    RotationType: byTime
+                    ELFFields: c-ip date time cs-method cs-uri sc-status bytes time-taken
+                        ctx-ecid
+                    FileMinSize: 5000
+            WebService:
+                WebServiceReliability:
+                    NonBufferedSource: true
+            CoherenceMemberConfig:
+                UnicastListenAddress: '@@PROP:Server.COHIcohCCHE04.ListenAddress@@'
+            CoherenceClusterSystemResource: COHI_Coherence
+        COHIcohPRXY01:
+            ServerLifeCycleTimeoutVal: 120
+            ListenPort: '@@PROP:Server.COHIcohPRXY01.ListenPort@@'
+            GracefulShutdownTimeout: 60
+            AddWorkManagerThreadsByCpuCount: true
+            StagingMode: nostage
+            MuxerClass: weblogic.socket.NIOSharedWorkSocketMuxer
+            AdministrationPort: '@@PROP:Server.COHIcohPRXY01.AdministrationPort@@'
+            StuckThreadTimerInterval: 20
+            MaxMessageSize: 100000000
+            ScatteredReadsEnabled: true
+            MaxOpenSockCount: 2000
+            ClasspathServletSecureModeEnabled: true
+            UseConcurrentQueueForRequestManager: true
+            GatheredWritesEnabled: true
+            ListenAddress: '@@PROP:Server.COHIcohPRXY01.ListenAddress@@'
+            Cluster: COHIcohPRXY
+            DataSource:
+                DataSourceLogFile:
+                    FileMinSize: 5000
+                    FileCount: 100
+                    RotateLogOnStartup: false
+            JTAMigratableTarget:
+                Cluster: COHIcohPRXY
+                UserPreferredServer: COHIcohPRXY01
+            Log:
+                MemoryBufferSize: 500
+                DateFormatPattern: MMM d, yyyy h:mm:ss a z
+                DomainLogBroadcastSeverity: 'Off'
+                RotationType: bySize
+                StdoutSeverity: 'Off'
+                PlatformLoggerLevels:
+                    com.oracle.coherence: FINEST
+                FileMinSize: 5000
+                RedirectStderrToServerLogEnabled: true
+                LoggerSeverity: Trace
+                DomainLogBroadcasterBufferSize: 10
+                RedirectStdoutToServerLogEnabled: true
+                FileCount: 10
+                RotateLogOnStartup: true
+            ServerDiagnosticConfig:
+                WldfDiagnosticVolume: 'Off'
+            SingleSignOnServices:
+                WantAssertionsSigned: true
+            WebServer:
+                KeepAliveSecs: 15
+                PostTimeoutSecs: 20
+                MaxPostSize: 100000000
+                HttpsKeepAliveSecs: 30
+                WebServerLog:
+                    RotateLogOnStartup: false
+                    LogFileFormat: extended
+                    RotationType: byTime
+                    ELFFields: c-ip date time cs-method cs-uri sc-status bytes time-taken
+                        ctx-ecid
+                    FileMinSize: 5000
+            WebService:
+                WebServiceReliability:
+                    NonBufferedSource: true
+        COHIcohPRXY02:
+            ServerLifeCycleTimeoutVal: 120
+            ListenPort: '@@PROP:Server.COHIcohPRXY02.ListenPort@@'
+            GracefulShutdownTimeout: 60
+            AddWorkManagerThreadsByCpuCount: true
+            StagingMode: nostage
+            MuxerClass: weblogic.socket.NIOSharedWorkSocketMuxer
+            AdministrationPort: '@@PROP:Server.COHIcohPRXY02.AdministrationPort@@'
+            StuckThreadTimerInterval: 20
+            MaxMessageSize: 100000000
+            ScatteredReadsEnabled: true
+            MaxOpenSockCount: 2000
+            ClasspathServletSecureModeEnabled: true
+            UseConcurrentQueueForRequestManager: true
+            GatheredWritesEnabled: true
+            ListenAddress: '@@PROP:Server.COHIcohPRXY02.ListenAddress@@'
+            Cluster: COHIcohPRXY
+            DataSource:
+                DataSourceLogFile:
+                    FileMinSize: 5000
+                    FileCount: 100
+                    RotateLogOnStartup: false
+            JTAMigratableTarget:
+                Cluster: COHIcohPRXY
+                UserPreferredServer: COHIcohPRXY02
+            Log:
+                MemoryBufferSize: 500
+                DateFormatPattern: MMM d, yyyy h:mm:ss a z
+                DomainLogBroadcastSeverity: 'Off'
+                RotationType: bySize
+                StdoutSeverity: 'Off'
+                PlatformLoggerLevels:
+                    com.oracle.coherence: FINEST
+                FileMinSize: 5000
+                RedirectStderrToServerLogEnabled: true
+                LoggerSeverity: Trace
+                DomainLogBroadcasterBufferSize: 10
+                RedirectStdoutToServerLogEnabled: true
+                FileCount: 10
+                RotateLogOnStartup: true
+            ServerDiagnosticConfig:
+                WldfDiagnosticVolume: 'Off'
+            SingleSignOnServices:
+                WantAssertionsSigned: true
+            WebServer:
+                KeepAliveSecs: 15
+                PostTimeoutSecs: 20
+                MaxPostSize: 100000000
+                HttpsKeepAliveSecs: 30
+                WebServerLog:
+                    RotateLogOnStartup: false
+                    LogFileFormat: extended
+                    RotationType: byTime
+                    ELFFields: c-ip date time cs-method cs-uri sc-status bytes time-taken
+                        ctx-ecid
+                    FileMinSize: 5000
+            WebService:
+                WebServiceReliability:
+                    NonBufferedSource: true
+        COHIcohTEST01:
+            ServerLifeCycleTimeoutVal: 120
+            ListenPort: '@@PROP:Server.COHIcohTEST01.ListenPort@@'
+            GracefulShutdownTimeout: 60
+            MaxHTTPMessageSize: 10000000
+            AddWorkManagerThreadsByCpuCount: true
+            StagingMode: nostage
+            MuxerClass: weblogic.socket.NIOSharedWorkSocketMuxer
+            AdministrationPort: '@@PROP:Server.COHIcohTEST01.AdministrationPort@@'
+            StuckThreadTimerInterval: 20
+            ScatteredReadsEnabled: true
+            MaxOpenSockCount: 2000
+            ClasspathServletSecureModeEnabled: true
+            UseConcurrentQueueForRequestManager: true
+            GatheredWritesEnabled: true
+            ListenAddress: '@@PROP:Server.COHIcohTEST01.ListenAddress@@'
+            Cluster: COHIcohTEST
+            DataSource:
+                DataSourceLogFile:
+                    FileMinSize: 5000
+                    FileCount: 100
+                    RotateLogOnStartup: false
+            JTAMigratableTarget:
+                Cluster: COHIcohTEST
+                UserPreferredServer: COHIcohTEST01
+            Log:
+                MemoryBufferSize: 500
+                DateFormatPattern: MMM d, yyyy h:mm:ss a z
+                DomainLogBroadcastSeverity: 'Off'
+                RotationType: bySize
+                StdoutSeverity: 'Off'
+                PlatformLoggerLevels:
+                    com.oracle.coherence: FINEST
+                FileMinSize: 5000
+                RedirectStderrToServerLogEnabled: true
+                LoggerSeverity: Trace
+                DomainLogBroadcasterBufferSize: 10
+                RedirectStdoutToServerLogEnabled: true
+                FileCount: 10
+                RotateLogOnStartup: true
+            ServerDiagnosticConfig:
+                WldfDiagnosticVolume: 'Off'
+            SingleSignOnServices:
+                WantAssertionsSigned: true
+            WebServer:
+                KeepAliveSecs: 15
+                PostTimeoutSecs: 20
+                MaxPostSize: 100000000
+                HttpsKeepAliveSecs: 30
+                WebServerLog:
+                    RotateLogOnStartup: false
+                    LogFileFormat: extended
+                    RotationType: byTime
+                    ELFFields: c-ip date time cs-method cs-uri sc-status bytes time-taken
+                        ctx-ecid
+                    FileMinSize: 5000
+            WebService:
+                WebServiceReliability:
+                    NonBufferedSource: true
+        COHIwladmin0:
+            ServerLifeCycleTimeoutVal: 120
+            ListenPort: '@@PROP:Server.COHIwladmin0.ListenPort@@'
+            GracefulShutdownTimeout: 60
+            UseEnhancedIncrementAdvisor: false
+            AddWorkManagerThreadsByCpuCount: true
+            StagingMode: nostage
+            MuxerClass: weblogic.socket.NIOSharedWorkSocketMuxer
+            AdministrationPort: '@@PROP:Server.COHIwladmin0.AdministrationPort@@'
+            StuckThreadTimerInterval: 20
+            MaxMessageSize: 100000000
+            ScatteredReadsEnabled: true
+            MaxOpenSockCount: 2000
+            ClasspathServletSecureModeEnabled: true
+            UseConcurrentQueueForRequestManager: true
+            GatheredWritesEnabled: true
+            ListenAddress: '@@PROP:Server.COHIwladmin0.ListenAddress@@'
+            CoherenceMemberConfig:
+                LocalStorageEnabled: false
+            DataSource:
+                DataSourceLogFile:
+                    FileMinSize: 5000
+                    FileCount: 100
+                    RotateLogOnStartup: false
+            Log:
+                MemoryBufferSize: 500
+                LogFileSeverity: Info
+                DomainLogBroadcastSeverity: 'Off'
+                RotationType: bySize
+                StdoutSeverity: 'Off'
+                FileMinSize: 5000
+                RedirectStderrToServerLogEnabled: true
+                DomainLogBroadcasterBufferSize: 10
+                RedirectStdoutToServerLogEnabled: true
+                FileCount: 10
+                RotateLogOnStartup: true
+            NetworkAccessPoint:
+                ChannelGestion:
+                    PublicPort: '@@PROP:Server.COHIwladmin0.ChannelGestion.PublicPort@@'
+                    MaxMessageSize: 100000000
+                    ListenPort: '@@PROP:Server.COHIwladmin0.ChannelGestion.ListenPort@@'
+                    ListenAddress: '@@PROP:Server.COHIwladmin0.ChannelGestion.ListenAddress@@'
+                    PublicAddress: '@@PROP:Server.COHIwladmin0.ChannelGestion.PublicAddress@@'
+                    ClusterAddress: '@@PROP:Server.COHIwladmin0.ChannelGestion.ClusterAddress@@'
+            ServerDiagnosticConfig:
+                WldfDiagnosticVolume: 'Off'
+            SingleSignOnServices:
+                WantAssertionsSigned: true
+            WebServer:
+                KeepAliveSecs: 15
+                PostTimeoutSecs: 20
+                MaxPostSize: 100000000
+                HttpsKeepAliveSecs: 30
+                WebServerLog:
+                    RotateLogOnStartup: false
+                    LogFileFormat: extended
+                    RotationType: byTime
+                    ELFFields: c-ip date time cs-method cs-uri sc-status bytes time-taken
+                        ctx-ecid
+                    FileMinSize: 5000
+            WebService:
+                WebServiceReliability:
+                    NonBufferedSource: true
+    MigratableTarget:
+        COHIcohCCHE01 (migratable):
+            Notes: This is a system generated default migratable target for a server.
+                Do not delete manually.
+            UserPreferredServer: COHIcohCCHE01
+            Cluster: COHIcohCCHE
+        COHIcohCCHE02 (migratable):
+            Notes: This is a system generated default migratable target for a server.
+                Do not delete manually.
+            UserPreferredServer: COHIcohCCHE02
+            Cluster: COHIcohCCHE
+        COHIcohCCHE03 (migratable):
+            Notes: This is a system generated default migratable target for a server.
+                Do not delete manually.
+            UserPreferredServer: COHIcohCCHE03
+            Cluster: COHIcohCCHE
+        COHIcohCCHE04 (migratable):
+            Notes: This is a system generated default migratable target for a server.
+                Do not delete manually.
+            UserPreferredServer: COHIcohCCHE04
+            Cluster: COHIcohCCHE
+        COHIcohPRXY01 (migratable):
+            Notes: This is a system generated default migratable target for a server.
+                Do not delete manually.
+            UserPreferredServer: COHIcohPRXY01
+            Cluster: COHIcohPRXY
+        COHIcohPRXY02 (migratable):
+            Notes: This is a system generated default migratable target for a server.
+                Do not delete manually.
+            UserPreferredServer: COHIcohPRXY02
+            Cluster: COHIcohPRXY
+        COHIcohTEST01 (migratable):
+            Notes: This is a system generated default migratable target for a server.
+                Do not delete manually.
+            UserPreferredServer: COHIcohTEST01
+            Cluster: COHIcohTEST
+    SecurityConfiguration:
+        Realm:
+            myrealm:
+                UserLockoutManager:
+                    LockoutResetDuration: 60
+    LogFilter:
+        select:
+            FilterExpression: |-
+                (MESSAGE LIKE 'SELECT SERV_ID_KEY, SERV_NO_URL FROM UMD_COCOTE1.CCGEA_SERVICES WHERE SERV_ID_KEY = ?') AND (SEVERITY = 'Notice')
+    AdministrationPortEnabled: true
+resources:
+    WebAppContainer:
+        ServletReloadCheckSecs: -1
+    JDBCSystemResource:
+        UOD_CATALG1_DS_XA:
+            Target: COHIcohCCHE
+            JdbcResource:
+                DatasourceType: GENERIC
+                JDBCConnectionPoolParams:
+                    TestConnectionsOnReserve: true
+                    TestTableName: SQL SELECT 1 FROM DUAL
+                    InactiveConnectionTimeoutSeconds: 1200
+                    ConnectionHarvestMaxCount: 5
+                    MaxCapacity: 100
+                JDBCDataSourceParams:
+                    JNDIName: jdbc/CATA/UOD_CATALG1_DS_XA
+                    GlobalTransactionsProtocol: TwoPhaseCommit
+                JDBCDriverParams:
+                    PasswordEncrypted: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-catalg1-ds-xa:password@@'
+                    URL: '@@PROP:JDBC.UOD_CATALG1_DS_XA.URL@@'
+                    DriverName: oracle.jdbc.xa.client.OracleXADataSource
+                    Properties:
+                        user:
+                            Value: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-catalg1-ds-xa:username@@'
+                JDBCOracleParams:
+                    OracleOptimizeUtf8Conversion: true
+        UOD_CLIENT1_DS_XA:
+            Target: COHIcohCCHE
+            JdbcResource:
+                DatasourceType: GENERIC
+                JDBCConnectionPoolParams:
+                    TestConnectionsOnReserve: true
+                    TestTableName: SQL SELECT 1 FROM DUAL
+                    InactiveConnectionTimeoutSeconds: 1200
+                    MaxCapacity: 20
+                JDBCDataSourceParams:
+                    JNDIName: jdbc/GCLI/UOD_CLIENT1_DS_XA
+                    GlobalTransactionsProtocol: TwoPhaseCommit
+                JDBCDriverParams:
+                    PasswordEncrypted: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-client1-ds-xa:password@@'
+                    URL: '@@PROP:JDBC.UOD_CLIENT1_DS_XA.URL@@'
+                    DriverName: oracle.jdbc.xa.client.OracleXADataSource
+                    Properties:
+                        user:
+                            Value: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-client1-ds-xa:username@@'
+                JDBCOracleParams:
+                    OracleOptimizeUtf8Conversion: true
+        UOD_CNALES1_DS_XA:
+            Target: COHIcohCCHE
+            JdbcResource:
+                DatasourceType: GENERIC
+                JDBCConnectionPoolParams:
+                    TestConnectionsOnReserve: true
+                    TestTableName: SQL SELECT 1 FROM DUAL
+                    InactiveConnectionTimeoutSeconds: 1200
+                JDBCDataSourceParams:
+                    JNDIName: jdbc/CANA/UOD_CNALES1_DS_XA
+                    GlobalTransactionsProtocol: TwoPhaseCommit
+                JDBCDriverParams:
+                    PasswordEncrypted: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-cnales1-ds-xa:password@@'
+                    URL: '@@PROP:JDBC.UOD_CNALES1_DS_XA.URL@@'
+                    DriverName: oracle.jdbc.xa.client.OracleXADataSource
+                    Properties:
+                        user:
+                            Value: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-cnales1-ds-xa:username@@'
+                JDBCOracleParams:
+                    OracleOptimizeUtf8Conversion: true
+        UOD_COBROS1_DS_XA:
+            Target: COHIcohCCHE
+            JdbcResource:
+                DatasourceType: GENERIC
+                JDBCConnectionPoolParams:
+                    TestConnectionsOnReserve: true
+                    TestTableName: SQL SELECT 1 FROM DUAL
+                    InactiveConnectionTimeoutSeconds: 1200
+                JDBCDataSourceParams:
+                    JNDIName: jdbc/COBT/UOD_COBROS1_DS_XA
+                    GlobalTransactionsProtocol: TwoPhaseCommit
+                JDBCDriverParams:
+                    PasswordEncrypted: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-cobros1-ds-xa:password@@'
+                    URL: '@@PROP:JDBC.UOD_COBROS1_DS_XA.URL@@'
+                    DriverName: oracle.jdbc.xa.client.OracleXADataSource
+                    Properties:
+                        user:
+                            Value: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-cobros1-ds-xa:username@@'
+                JDBCOracleParams:
+                    OracleOptimizeUtf8Conversion: true
+        UOD_COCOTE1_DS_XA:
+            Target: COHIcohCCHE
+            JdbcResource:
+                DatasourceType: GENERIC
+                JDBCConnectionPoolParams:
+                    TestConnectionsOnReserve: true
+                    TestTableName: SQL SELECT 1 FROM DUAL
+                    InactiveConnectionTimeoutSeconds: 1200
+                    MaxCapacity: 100
+                JDBCDataSourceParams:
+                    JNDIName: jdbc/COCO/UOD_COCOTE1_DS_XA
+                    GlobalTransactionsProtocol: TwoPhaseCommit
+                JDBCDriverParams:
+                    PasswordEncrypted: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-cocote1-ds-xa:password@@'
+                    URL: '@@PROP:JDBC.UOD_COCOTE1_DS_XA.URL@@'
+                    DriverName: oracle.jdbc.xa.client.OracleXADataSource
+                    Properties:
+                        user:
+                            Value: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-cocote1-ds-xa:username@@'
+                JDBCOracleParams:
+                    OracleOptimizeUtf8Conversion: true
+        UOD_GESTOR1_DS_XA:
+            Target: COHIcohCCHE
+            JdbcResource:
+                DatasourceType: GENERIC
+                JDBCConnectionPoolParams:
+                    TestConnectionsOnReserve: true
+                    TestTableName: SQL SELECT 1 FROM DUAL
+                    InactiveConnectionTimeoutSeconds: 1200
+                JDBCDataSourceParams:
+                    JNDIName: jdbc/GEST/UOD_GESTOR1_DS_XA
+                    GlobalTransactionsProtocol: TwoPhaseCommit
+                JDBCDriverParams:
+                    PasswordEncrypted: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-gestor1-ds-xa:password@@'
+                    URL: '@@PROP:JDBC.UOD_GESTOR1_DS_XA.URL@@'
+                    DriverName: oracle.jdbc.xa.client.OracleXADataSource
+                    Properties:
+                        user:
+                            Value: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-gestor1-ds-xa:username@@'
+                JDBCOracleParams:
+                    OracleOptimizeUtf8Conversion: true
+        UOD_GIFTRA1_DS_XA:
+            Target: COHIcohCCHE
+            JdbcResource:
+                DatasourceType: GENERIC
+                JDBCConnectionPoolParams:
+                    TestConnectionsOnReserve: true
+                    TestTableName: SQL SELECT 1 FROM DUAL
+                    InactiveConnectionTimeoutSeconds: 1200
+                JDBCDataSourceParams:
+                    JNDIName: jdbc/GSTR/UOD_GIFTRA1_DS_XA
+                    GlobalTransactionsProtocol: TwoPhaseCommit
+                JDBCDriverParams:
+                    PasswordEncrypted: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-giftra1-ds-xa:password@@'
+                    URL: '@@PROP:JDBC.UOD_GIFTRA1_DS_XA.URL@@'
+                    DriverName: oracle.jdbc.xa.client.OracleXADataSource
+                    Properties:
+                        user:
+                            Value: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-giftra1-ds-xa:username@@'
+                JDBCOracleParams:
+                    OracleOptimizeUtf8Conversion: true
+        UOD_GISSTE1_DS:
+            Target: COHIcohCCHE
+            JdbcResource:
+                DatasourceType: GENERIC
+                JDBCConnectionPoolParams:
+                    TestConnectionsOnReserve: true
+                    TestTableName: SQL SELECT 1 FROM DUAL
+                    InactiveConnectionTimeoutSeconds: 1200
+                JDBCDataSourceParams:
+                    JNDIName: jdbc/GISS/UOD_GISSTE1_DS
+                    GlobalTransactionsProtocol: TwoPhaseCommit
+                JDBCDriverParams:
+                    PasswordEncrypted: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-gisste1-ds:password@@'
+                    URL: '@@PROP:JDBC.UOD_GISSTE1_DS.URL@@'
+                    DriverName: oracle.jdbc.xa.client.OracleXADataSource
+                    Properties:
+                        user:
+                            Value: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-gisste1-ds:username@@'
+                JDBCOracleParams:
+                    OracleOptimizeUtf8Conversion: true
+        UOD_INUBIC1_DS_XA:
+            Target: COHIcohCCHE
+            JdbcResource:
+                DatasourceType: GENERIC
+                JDBCConnectionPoolParams:
+                    TestConnectionsOnReserve: true
+                    TestTableName: SQL SELECT 1 FROM DUAL
+                    InactiveConnectionTimeoutSeconds: 1200
+                JDBCDataSourceParams:
+                    JNDIName: jdbc/UBIC/UOD_INUBIC1_DS_XA
+                    GlobalTransactionsProtocol: TwoPhaseCommit
+                JDBCDriverParams:
+                    PasswordEncrypted: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-inubic1-ds-xa:password@@'
+                    URL: '@@PROP:JDBC.UOD_INUBIC1_DS_XA.URL@@'
+                    DriverName: oracle.jdbc.xa.client.OracleXADataSource
+                    Properties:
+                        user:
+                            Value: '@@SECRET:@@ENV:DOMAIN_UID@@-jdbc-uod-inubic1-ds-xa:username@@'
+                JDBCOracleParams:
+                    OracleOptimizeUtf8Conversion: true
+    CoherenceClusterSystemResource:
+        COHI_Coherence:
+            Target: COHIcohCCHE01,COHIcohCCHE02,COHIcohCCHE03,COHIcohCCHE04,COHIcohPRXY01,COHIcohPRXY02,COHIcohTEST01
+            CoherenceResource:
+                CoherenceClusterParams:
+                    ClusteringMode: unicast
+                    TimeToLive: 0
+                    ClusterListenPort: '@@PROP:Coherence.COHI_Coherence.ClusterListenPort@@'
+                    CoherenceClusterWellKnownAddress:
+                        WKA1:
+                            ListenAddress: '@@PROP:Coherence.COHI_Coherence.WKA1.ListenAddress@@'
+                        WKA2:
+                            ListenAddress: '@@PROP:Coherence.COHI_Coherence.WKA2.ListenAddress@@'
+                        WKA3:
+                            ListenAddress: '@@PROP:Coherence.COHI_Coherence.WKA3.ListenAddress@@'
+                        WKA4:
+                            ListenAddress: '@@PROP:Coherence.COHI_Coherence.WKA4.ListenAddress@@'
+                        WKA5:
+                            ListenAddress: '@@PROP:Coherence.COHI_Coherence.WKA5.ListenAddress@@'
+                        WKA6:
+                            ListenAddress: '@@PROP:Coherence.COHI_Coherence.WKA6.ListenAddress@@'
+                        WKA7:
+                            ListenAddress: '@@PROP:Coherence.COHI_Coherence.WKA7.ListenAddress@@'
+                    Transport: udp
+                CoherenceLoggingParams:
+                    MessageFormat: '{date}/{uptime} {product} {version} <{level}>
+                        (thread={thread}, member={member}): {text}'
+appDeployments:
+    Application:
+        CohManagement:
+            SourcePath: wlsdeploy/applications/CohManagement.war
+            ModuleType: war
+            Target: COHIcohTEST
+        CoherenceToolsEAREE5:
+            SourcePath: wlsdeploy/applications/CoherenceToolsEAREE5.ear
+            ModuleType: ear
+            Target: COHIcohTEST
+        cserver-cache-drot-1.0:
+            SourcePath: wlsdeploy/applications/cserver-cache-drot-1.0
+            ModuleType: gar
+            Target: COHIcohCCHE,COHIcohPRXY,COHIcohTEST
+        cserver-cache-flowvars-1.0:
+            SourcePath: wlsdeploy/applications/cserver-cache-flowvars-1.0
+            ModuleType: gar
+            Target: COHIcohCCHE,COHIcohPRXY,COHIcohTEST
+        cserver-cache-infra-1.0:
+            SourcePath: wlsdeploy/applications/cserver-cache-infra-1.0
+            ModuleType: gar
+            Target: COHIcohCCHE,COHIcohPRXY,COHIcohTEST
+        cserver-cache-servicio-1.0:
+            SourcePath: wlsdeploy/applications/cserver-cache-servicio-1.0
+            ModuleType: gar
+            Target: COHIcohCCHE,COHIcohPRXY,COHIcohTEST
+        cserver-cache-servicio-cata-1.0:
+            SourcePath: wlsdeploy/applications/cserver-cache-servicio-cata-1.0
+            ModuleType: gar
+            Target: COHIcohCCHE,COHIcohPRXY,COHIcohTEST

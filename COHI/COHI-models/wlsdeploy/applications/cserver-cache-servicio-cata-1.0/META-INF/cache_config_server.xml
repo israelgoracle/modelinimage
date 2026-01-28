@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<cache-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.oracle.com/coherence/coherence-cache-config" xsi:schemaLocation="http://xmlns.oracle.com/coherence/coherence-cache-config coherence-cache-config.xsd">
+    <scope-name>telefonica.coherence.servicio.cata</scope-name>
+    <caching-scheme-mapping>
+        <!-- Caché a nivel de servicio -->
+        <cache-mapping>
+            <cache-name>CACHE_APP_CATA_*</cache-name>
+            <scheme-name>TELCO-distributed-app-cata</scheme-name>
+            <init-params>
+                <init-param>
+                    <param-name>expiry-delay</param-name>
+                    <param-value>60s</param-value>
+                </init-param>
+            </init-params>
+        </cache-mapping>
+    </caching-scheme-mapping>
+    <caching-schemes>
+        <!-- Proxy config  -->
+        <proxy-scheme>
+            <scheme-name>COHI-proxy-servicio-cata</scheme-name>
+            <service-name>COHI-ExtendTcpProxyService-SERVICIO-CATA</service-name>
+            <thread-count-min>16</thread-count-min>
+            <acceptor-config>
+                <tcp-acceptor>
+                    <local-address>
+                        <address system-property="movistar.coherence.proxyaddress"/>
+                        <port system-property="movistar.coherence.proxyport.servicio.cata">1</port>
+                    </local-address>
+                </tcp-acceptor>
+            </acceptor-config>
+            <proxy-config>
+                <cache-service-proxy>
+                    <lock-enabled>true</lock-enabled>
+                </cache-service-proxy>
+            </proxy-config>
+            <!-- Only true for Proxy roles-->
+            <autostart system-property="movistar.coherence.proxyenabled.servicio.cata">false</autostart>
+        </proxy-scheme>
+        <distributed-scheme>
+            <scheme-name>TELCO-distributed-app-cata</scheme-name>
+            <service-name>TELCO-DistributedCache-APP-CATA</service-name>
+            <thread-count-min>4</thread-count-min>
+            <lease-granularity>member</lease-granularity>
+            <backing-map-scheme>
+                <local-scheme>
+                    <eviction-policy>LRU</eviction-policy>
+                    <high-units>{back-size-limit 256}</high-units>
+                    <unit-calculator>BINARY</unit-calculator>
+                    <unit-factor>1048576</unit-factor>
+                    <expiry-delay>{expiry-delay}</expiry-delay>
+                </local-scheme>
+            </backing-map-scheme>
+            <autostart system-property="movistar.coherence.cacheenabled.servicio.cata">false</autostart>
+        </distributed-scheme>
+    </caching-schemes>
+</cache-config>

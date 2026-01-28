@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cohi-config-map
+  namespace: cohi-ns
+data:
+  cohi-overrides.properties: ''

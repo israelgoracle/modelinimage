@@ -1,0 +1,100 @@
+# Crear los recursos del cluster antes que el recurso del dominio que les hace referencia.
+#
+apiVersion: weblogic.oracle/v1
+kind: Cluster
+metadata:
+  name: wjms-wjmsjmswjms
+  namespace: wjms-ns
+  labels:
+    weblogic.domainUID: wjms
+spec:
+  clusterName: WJMSjmsWJMS
+  replicas: 1
+---
+apiVersion: weblogic.oracle/v1
+kind: Cluster
+metadata:
+  name: wjms-wjmsjmscoco
+  namespace: wjms-ns
+  labels:
+    weblogic.domainUID: wjms
+spec:
+  clusterName: WJMSjmsCOCO
+  replicas: 1
+---
+apiVersion: weblogic.oracle/v9
+kind: Domain
+metadata:
+  name: wjms
+  namespace: wjms-ns
+  labels:
+    weblogic.domainUID: wjms
+spec:
+  domainUID: wjms
+  domainHomeSourceType: FromModel
+  # Imagen base de WebLogic 14.1.2
+  image: container-registry.oracle.com/middleware/weblogic:14.1.2.0-generic-jdk17-ol8
+  imagePullPolicy: IfNotPresent
+  # Incrementar este valor para forzar re-introspección
+  introspectVersion: '115'
+  # Secret con credenciales de WebLogic admin (username/password)
+  webLogicCredentialsSecret:
+    name: wjms-weblogic-credentials
+  # Directorio home del dominio dentro del contenedor
+  domainHome: /u01/domains/wjms
+  # Pull secrets para imágenes
+  imagePullSecrets:
+    - name: ocr   # Para imagen base de WebLogic desde container-registry.oracle.com
+    - name: ocir  # Para imagen auxiliar desde mad.ocir.io
+  # Configuración de pods
+  serverPod:
+    env:
+      - name: JAVA_OPTIONS
+        value: >-
+          -Dweblogic.StdoutDebugEnabled=false
+          -Djava.security.egd=file:/dev/./urandom
+          -Dweblogic.security.SSL.ignoreHostnameVerification=true
+          -Dtangosol.coherence.cacheconfig=/coherenceclient/cache_config_client.xml
+          -Dtangosol.coherence.override=/coherenceclient/tangosol-coherence-override.xml
+          -Dtap.cache.config-file=/coherenceclient/cache_config_client.xml
+          -Dtap.config-server.connection-string=zookeeper-0.zookeeper-headless.zookeeper.svc.cluster.local:2181
+      - name: USER_MEM_ARGS
+        value: '-Xms512m -Xmx1024m'
+      # Variables para conexión a Zookeeper (config-server)
+      - name: tap.config-server.connection-string
+        value: 'zookeeper-0.zookeeper-headless.zookeeper.svc.cluster.local:2181'
+      # Variable para archivo de configuración de Coherence
+      - name: tap.cache.config-file
+        value: /coherenceclient/cache_config_client.xml
+    # VolumeMounts para montar el ConfigMap de Coherence
+    volumeMounts:
+      - mountPath: /coherenceclient
+        name: coherence-vol
+    # Volumes - ConfigMap con la configuración de Coherence
+    volumes:
+      - name: coherence-vol
+        configMap:
+          name: cache-config-client
+  # Configuración del modelo WDT
+  configuration:
+    model:
+      # Imagen auxiliar con el modelo WDT y aplicaciones
+      auxiliaryImages:
+        - image: mad.ocir.io/axojlwfywuhi/oke/telco-wjms:v1.3
+          imagePullPolicy: IfNotPresent
+      # Tipo de dominio
+      domainType: WLS
+      # Secret para encriptación en runtime
+      runtimeEncryptionSecret: wjms-runtime-encryption-secret
+      # ConfigMap opcional con configuración adicional (comentar si no existe)
+      # configMap: wjms-config-map
+    # Secrets adicionales (datasources JDBC)
+    secrets:
+      - wjms-jdbc-ujms-tlcbam-ds
+      - wjms-jdbc-ujms-tlcsig-ds
+    # Timeout para el job de introspección
+    introspectorJobActiveDeadlineSeconds: 900
+  # Referencias a los clusters
+  clusters:
+    - name: wjms-wjmsjmswjms
+    - name: wjms-wjmsjmscoco

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<coherence-application xmlns="http://xmlns.oracle.com/weblogic/coherence-application">
+  <cache-configuration-ref>META-INF/cache_config_server.xml</cache-configuration-ref>
+</coherence-application>
