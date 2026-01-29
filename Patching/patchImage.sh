@@ -26,7 +26,7 @@ fi
 IMAGE_BUILDER_EXE="/usr/bin/docker"
 IMAGETOOL_SCRIPT="/home/opc/wkt/weblogic-tools/weblogic-image-tool-1.16.2/imagetool/bin/imagetool.sh"
 
-# Imagen base de Oracle Container Registry
+# Imagen base a parchear
 BASE_IMAGE="container-registry.oracle.com/middleware/weblogic:14.1.2.0-generic-jdk17-ol8"
 
 # Directorio donde están los parches descargados
